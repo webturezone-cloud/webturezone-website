@@ -30,7 +30,7 @@ const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
 /** Mobile-safe headline sizing (CMS size overrides when set). */
-const HEADLINE_CLAMP_SIZE = 'text-[clamp(1.1rem,5.5vw,6rem)]';
+const HEADLINE_CLAMP_SIZE = 'text-[clamp(0.85rem,4.5vw,6rem)]';
 
 export function Hero({
   headlineLine1,

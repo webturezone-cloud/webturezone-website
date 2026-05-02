@@ -89,7 +89,7 @@ export function SplitText({
   return (
     <motion.span
       ref={ref}
-      className={cn('inline-flex flex-wrap', className)}
+      className={cn('inline-flex flex-wrap gap-x-[0.2em]', className)}
       initial="hidden"
       animate={controls}
       variants={containerVariants}
@@ -99,7 +99,7 @@ export function SplitText({
         <motion.span
           key={`${splitBy}-${i}-${item}`}
           variants={itemVariants}
-          className={cn(splitBy === 'words' && i < items.length - 1 && 'mr-[0.25em]')}
+          className={cn(splitBy === 'words' && 'whitespace-nowrap')}
           style={{ display: 'inline-block' }}
         >
           {item}
