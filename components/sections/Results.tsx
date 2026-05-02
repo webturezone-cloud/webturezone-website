@@ -1,8 +1,11 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { RESULTS, SECTION_HEADINGS, SECTION_LABELS } from '@/lib/constants';
+import type { SiteSettings } from '@/lib/site-settings';
+import { cn } from '@/lib/utils';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -15,16 +18,25 @@ const fadeUp = {
 
 type ResultsProps = {
   heading?: string;
-  sectionHeadingSize?: string;
-  bodyTextSize?: string;
+  settings?: SiteSettings;
 };
 
 const FALLBACK_SECTION_HEADING = 'text-[clamp(1.8rem,7vw,5rem)]';
+const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
 
-export function Results({ heading, sectionHeadingSize, bodyTextSize }: ResultsProps = {}) {
+export function Results({ heading, settings }: ResultsProps = {}) {
   const trimmedHeading = heading?.trim();
-  const sectionSize = sectionHeadingSize?.trim() || FALLBACK_SECTION_HEADING;
-  const bodySize = bodyTextSize?.trim() || 'text-xs';
+  const desktopHeading =
+    settings?.section_heading_size?.trim() || FALLBACK_SECTION_HEADING;
+  const mobileHeading =
+    settings?.mobile_section_heading_size?.trim() || FALLBACK_MOBILE_SECTION;
+
+  const bodyDesktop = settings?.body_text_size?.trim() || 'text-xs';
+  const metricBodyMobile = settings?.mobile_body_text_size?.trim()
+    ? `max-sm:${settings.mobile_body_text_size.trim()}`
+    : 'max-sm:text-xs';
+
+  const h2Style = { '--mobile-h2': mobileHeading } as CSSProperties;
 
   return (
     <section id="results" className="border-y border-white/[0.07] bg-surface py-16 sm:py-20 lg:py-24" aria-label="Results">
@@ -33,10 +45,14 @@ export function Results({ heading, sectionHeadingSize, bodyTextSize }: ResultsPr
           <SectionLabel>{SECTION_LABELS.results}</SectionLabel>
         </div>
         <h2
-          className={`mx-auto mt-3 max-w-4xl text-center font-display uppercase leading-[1.05] tracking-tight text-balance ${sectionSize}`}
+          style={h2Style}
+          className={cn(
+            'mobile-heading mx-auto mt-3 max-w-4xl text-center font-display uppercase leading-[1.05] tracking-tight text-balance text-white',
+            desktopHeading,
+          )}
         >
           {trimmedHeading ? (
-            <span className="text-white">{trimmedHeading}</span>
+            <span>{trimmedHeading}</span>
           ) : (
             <>
               {SECTION_HEADINGS.results.before}{' '}
@@ -57,8 +73,24 @@ export function Results({ heading, sectionHeadingSize, bodyTextSize }: ResultsPr
               }`}
             >
               <p className="font-display text-4xl text-blue sm:text-5xl lg:text-6xl">{result.value}</p>
-              <p className={`mt-2 font-medium uppercase tracking-widest text-white ${bodySize}`}>{result.metric}</p>
-              <p className={`mt-1 text-gray-600 ${bodySize}`}>{result.desc}</p>
+              <p
+                className={cn(
+                  'mt-2 font-medium uppercase tracking-widest text-white',
+                  metricBodyMobile,
+                  bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
+                )}
+              >
+                {result.metric}
+              </p>
+              <p
+                className={cn(
+                  'mt-1 text-gray-600',
+                  metricBodyMobile,
+                  bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
+                )}
+              >
+                {result.desc}
+              </p>
             </motion.div>
           ))}
         </div>

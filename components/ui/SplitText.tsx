@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import {
   motion,
@@ -14,6 +15,7 @@ export type SplitTextBy = 'words' | 'chars';
 export type SplitTextProps = {
   text: string;
   className?: string;
+  style?: CSSProperties;
   /** Seconds before stagger starts */
   delay?: number;
   /** Per-item transition duration */
@@ -40,6 +42,7 @@ function hiddenState(from: SplitTextFrom) {
 export function SplitText({
   text,
   className,
+  style,
   delay = 0,
   duration = 0.5,
   splitBy = 'words',
@@ -93,6 +96,7 @@ export function SplitText({
         'inline-flex flex-wrap gap-x-[0.2em] max-sm:gap-x-[0.12em]',
         className,
       )}
+      style={style}
       initial="hidden"
       animate={controls}
       variants={containerVariants}

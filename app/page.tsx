@@ -22,9 +22,6 @@ export default async function HomePage() {
     '04': settings.automation_image,
   };
 
-  const sectionHeadingSize = settings.section_heading_size;
-  const bodyTextSize = settings.body_text_size;
-
   return (
     <>
       <Navbar />
@@ -33,37 +30,15 @@ export default async function HomePage() {
           headlineLine1={settings.hero_headline_1}
           headlineLine2={settings.hero_headline_2}
           subtext={settings.hero_subtext}
-          heroHeadlineSize={settings.hero_headline_size}
-          bodyTextSize={bodyTextSize}
+          settings={settings}
         />
         <Marquee />
         <TrustStrip />
-        <Services
-          heading={settings.services_heading}
-          imageOverrides={serviceImages}
-          sectionHeadingSize={sectionHeadingSize}
-          bodyTextSize={bodyTextSize}
-        />
-        <Results
-          heading={settings.results_heading}
-          sectionHeadingSize={sectionHeadingSize}
-          bodyTextSize={bodyTextSize}
-        />
-        <WhyUs
-          heading={settings.whyus_heading}
-          sectionHeadingSize={sectionHeadingSize}
-          bodyTextSize={bodyTextSize}
-        />
-        <Process
-          heading={settings.process_heading}
-          sectionHeadingSize={sectionHeadingSize}
-          bodyTextSize={bodyTextSize}
-        />
-        <CTA
-          heading={settings.cta_heading}
-          sectionHeadingSize={sectionHeadingSize}
-          bodyTextSize={bodyTextSize}
-        />
+        <Services heading={settings.services_heading} imageOverrides={serviceImages} settings={settings} />
+        <Results heading={settings.results_heading} settings={settings} />
+        <WhyUs heading={settings.whyus_heading} settings={settings} />
+        <Process heading={settings.process_heading} settings={settings} />
+        <CTA heading={settings.cta_heading} settings={settings} />
       </main>
       <Footer />
     </>

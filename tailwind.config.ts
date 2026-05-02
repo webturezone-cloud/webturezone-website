@@ -1,6 +1,14 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  safelist: [
+    {
+      pattern: /^text-(xs|sm|base|lg|xl|2xl|3xl)$/,
+      variants: ['sm', 'max-sm'],
+    },
+    'sm:text-[0.85rem]',
+    'sm:text-[0.9rem]',
+  ],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',

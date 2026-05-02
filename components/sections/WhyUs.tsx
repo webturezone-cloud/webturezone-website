@@ -1,9 +1,12 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import { Layers, TrendingUp, User, Zap } from 'lucide-react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SECTION_HEADINGS, SECTION_LABELS, WHY_FEATURES } from '@/lib/constants';
+import type { SiteSettings } from '@/lib/site-settings';
+import { cn } from '@/lib/utils';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -18,16 +21,28 @@ const WHY_ICONS = [TrendingUp, Zap, User, Layers] as const;
 
 type WhyUsProps = {
   heading?: string;
-  sectionHeadingSize?: string;
-  bodyTextSize?: string;
+  settings?: SiteSettings;
 };
 
 const FALLBACK_SECTION_HEADING = 'text-[clamp(2.2rem,6vw,4rem)]';
+const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
 
-export function WhyUs({ heading, sectionHeadingSize, bodyTextSize }: WhyUsProps = {}) {
+export function WhyUs({ heading, settings }: WhyUsProps = {}) {
   const trimmedHeading = heading?.trim();
-  const sectionSize = sectionHeadingSize?.trim() || FALLBACK_SECTION_HEADING;
-  const bodySize = bodyTextSize?.trim() || 'text-sm';
+  const desktopHeading =
+    settings?.section_heading_size?.trim() || FALLBACK_SECTION_HEADING;
+  const mobileHeading =
+    settings?.mobile_section_heading_size?.trim() || FALLBACK_MOBILE_SECTION;
+
+  const bodyDesktop = settings?.body_text_size?.trim() || 'text-sm';
+  const introBodyMobile = settings?.mobile_body_text_size?.trim()
+    ? `max-sm:${settings.mobile_body_text_size.trim()}`
+    : 'max-sm:text-sm';
+  const featureBodyMobile = settings?.mobile_body_text_size?.trim()
+    ? `max-sm:${settings.mobile_body_text_size.trim()}`
+    : 'max-sm:text-sm';
+
+  const h2Style = { '--mobile-h2': mobileHeading } as CSSProperties;
 
   return (
     <section
@@ -39,9 +54,15 @@ export function WhyUs({ heading, sectionHeadingSize, bodyTextSize }: WhyUsProps 
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="text-center lg:text-left">
             <SectionLabel className="text-center lg:text-left">{SECTION_LABELS.why}</SectionLabel>
-            <h2 className={`mt-4 font-display uppercase leading-[1.05] tracking-tight text-balance ${sectionSize}`}>
+            <h2
+              style={h2Style}
+              className={cn(
+                'mobile-heading mt-4 font-display uppercase leading-[1.05] tracking-tight text-balance text-white',
+                desktopHeading,
+              )}
+            >
               {trimmedHeading ? (
-                <span className="text-white">{trimmedHeading}</span>
+                <span>{trimmedHeading}</span>
               ) : (
                 <>
                   {SECTION_HEADINGS.why.line1}
@@ -53,7 +74,11 @@ export function WhyUs({ heading, sectionHeadingSize, bodyTextSize }: WhyUsProps 
               )}
             </h2>
             <p
-              className={`mx-auto mt-4 max-w-full font-light leading-relaxed text-slate-300 text-balance lg:mx-0 lg:max-w-sm ${bodySize}`}
+              className={cn(
+                'mx-auto mt-4 max-w-full font-light leading-relaxed text-slate-300 text-balance lg:mx-0 lg:max-w-sm',
+                introBodyMobile,
+                bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
+              )}
             >
               {SECTION_HEADINGS.whySub}
             </p>
@@ -76,7 +101,15 @@ export function WhyUs({ heading, sectionHeadingSize, bodyTextSize }: WhyUsProps 
                   </div>
                   <div className="min-w-0 pt-0.5">
                     <h3 className="text-base font-semibold text-white">{feature.title}</h3>
-                    <p className={`mt-1.5 leading-relaxed text-slate-400 ${bodySize}`}>{feature.desc}</p>
+                    <p
+                      className={cn(
+                        `mt-1.5 leading-relaxed text-slate-400`,
+                        featureBodyMobile,
+                        bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
+                      )}
+                    >
+                      {feature.desc}
+                    </p>
                   </div>
                 </motion.article>
               );

@@ -2,9 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SERVICES, SERVICES_SECTION } from '@/lib/constants';
+import type { SiteSettings } from '@/lib/site-settings';
+import { cn } from '@/lib/utils';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -18,29 +21,50 @@ const fadeUp = {
 type ServicesProps = {
   heading?: string;
   imageOverrides?: Record<string, string>;
-  sectionHeadingSize?: string;
-  bodyTextSize?: string;
+  settings?: SiteSettings;
 };
 
 const FALLBACK_SECTION_HEADING = 'text-[clamp(1.8rem,5vw,5rem)]';
+const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
 
 export function Services({
   heading,
   imageOverrides,
-  sectionHeadingSize,
-  bodyTextSize,
+  settings,
 }: ServicesProps = {}) {
   const trimmedHeading = heading?.trim();
-  const sectionSize = sectionHeadingSize?.trim() || FALLBACK_SECTION_HEADING;
-  const bodySize = bodyTextSize?.trim() || 'text-sm';
+  const desktopHeading =
+    settings?.section_heading_size?.trim() || FALLBACK_SECTION_HEADING;
+  const mobileHeading =
+    settings?.mobile_section_heading_size?.trim() || FALLBACK_MOBILE_SECTION;
+
+  const bodyDesktop = settings?.body_text_size?.trim() || 'text-sm';
+  const introBodyMobile = settings?.mobile_body_text_size?.trim()
+    ? `max-sm:${settings.mobile_body_text_size.trim()}`
+    : 'max-sm:text-sm';
+
+  const cardTitleMobile = settings?.mobile_card_title_size?.trim()
+    ? `max-sm:${settings.mobile_card_title_size.trim()}`
+    : 'max-sm:text-xl';
+  const cardSubMobile = settings?.mobile_subtext_size?.trim()
+    ? `max-sm:${settings.mobile_subtext_size.trim()}`
+    : 'max-sm:text-sm';
+
+  const h2Style = { '--mobile-h2': mobileHeading } as CSSProperties;
 
   return (
     <section id="services" className="bg-black py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <SectionLabel>WHAT WE DO</SectionLabel>
-        <h2 className={`font-display mb-3 mt-3 text-center uppercase ${sectionSize}`}>
+        <h2
+          style={h2Style}
+          className={cn(
+            'font-display mobile-heading mb-3 mt-3 text-center uppercase leading-none text-white',
+            desktopHeading,
+          )}
+        >
           {trimmedHeading ? (
-            <span className="text-white">{trimmedHeading}</span>
+            <span>{trimmedHeading}</span>
           ) : (
             <>
               Four Weapons. <span className="text-blue-500">One Agency.</span>
@@ -48,7 +72,11 @@ export function Services({
           )}
         </h2>
         <p
-          className={`mx-auto max-w-xl text-center font-light leading-relaxed text-gray-400 ${bodySize}`}
+          className={cn(
+            `mx-auto max-w-xl text-center font-light leading-relaxed text-gray-400`,
+            introBodyMobile,
+            bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
+          )}
         >
           {SERVICES_SECTION.subtext}
         </p>
@@ -66,7 +94,6 @@ export function Services({
                 viewport={{ once: true, amount: 0.1 }}
                 className="group relative flex min-h-0 flex-col overflow-hidden rounded-2xl border border-blue-500/20 bg-[#080d1a] transition-colors duration-300 hover:border-blue-500/40 sm:min-h-[240px] sm:flex-row sm:items-stretch"
               >
-                {/* Image first on mobile */}
                 <div
                   className="relative order-first flex min-h-[180px] flex-shrink-0 items-center justify-center overflow-hidden border-b border-blue-500/10 bg-[#050a15] sm:order-last sm:min-h-0 sm:w-[220px] sm:border-b-0 sm:border-l sm:border-blue-500/10 lg:w-[260px]"
                 >
@@ -86,16 +113,27 @@ export function Services({
                   </div>
                 </div>
 
-                {/* Text second on mobile */}
                 <div className="relative z-10 order-last flex flex-1 flex-col justify-between p-6 sm:order-first sm:p-8">
                   <div className="flex flex-col gap-4">
                     <span className="inline-flex w-fit items-center rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-blue-400">
                       {service.num} · {service.title}
                     </span>
-                    <h3 className="font-display text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">
+                    <h3
+                      className={cn(
+                        'font-display uppercase leading-tight tracking-wide text-white',
+                        cardTitleMobile,
+                        'sm:text-2xl lg:text-3xl',
+                      )}
+                    >
                       {service.title}
                     </h3>
-                    <p className={`max-w-xs font-light leading-relaxed text-gray-400 ${bodySize}`}>
+                    <p
+                      className={cn(
+                        'max-w-xs font-light leading-relaxed text-gray-400',
+                        cardSubMobile,
+                        'sm:text-sm',
+                      )}
+                    >
                       {service.desc}
                     </p>
                   </div>

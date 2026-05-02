@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { useEffect, useMemo, useRef } from 'react';
 import {
   motion,
@@ -11,6 +12,7 @@ import { cn } from '@/lib/utils';
 export type BlurTextProps = {
   text: string;
   className?: string;
+  style?: CSSProperties;
   delay?: number;
   duration?: number;
   /** Stagger between words in seconds */
@@ -21,6 +23,7 @@ export type BlurTextProps = {
 export function BlurText({
   text,
   className,
+  style,
   delay = 0,
   duration = 0.55,
   stepDelay = 0.08,
@@ -67,6 +70,7 @@ export function BlurText({
     <motion.span
       ref={ref}
       className={cn('inline-flex flex-wrap', className)}
+      style={style}
       initial="hidden"
       animate={controls}
       variants={containerVariants}

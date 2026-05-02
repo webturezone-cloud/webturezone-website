@@ -1,11 +1,13 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import { motion } from 'motion/react';
 import { Aurora } from '@/components/ui/Aurora';
 import { BlurText } from '@/components/ui/BlurText';
 import { Magnet } from '@/components/ui/Magnet';
 import { Particles } from '@/components/ui/Particles';
 import { SplitText } from '@/components/ui/SplitText';
+import type { SiteSettings } from '@/lib/site-settings';
 import { cn } from '@/lib/utils';
 
 const fadeUp = {
@@ -21,8 +23,7 @@ type HeroProps = {
   headlineLine1?: string;
   headlineLine2?: string;
   subtext?: string;
-  heroHeadlineSize?: string;
-  bodyTextSize?: string;
+  settings?: SiteSettings;
 };
 
 const DEFAULT_LINE_1 = "We Don't Run Ads.";
@@ -30,29 +31,28 @@ const DEFAULT_LINE_2 = 'We Engineer Results.';
 const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
-/** Fallback when CMS hero headline size is empty. */
-const HEADLINE_CLAMP_SIZE = 'text-[clamp(0.85rem,4.5vw,6rem)]';
-/**
- * Overrides fixed Tailwind sizes (e.g. saved `text-7xl` from CMS) below `sm`
- * so wide hero lines fit on narrow viewports (~375px).
- */
-const HEADLINE_MOBILE_CLAMP = 'max-sm:!text-[clamp(0.53rem,2.82vw,6rem)]';
+const DEFAULT_MOBILE_HEADLINE = 'clamp(0.85rem,4.5vw,6rem)';
+const DEFAULT_DESKTOP_HEADLINE = 'sm:text-7xl';
 
-export function Hero({
-  headlineLine1,
-  headlineLine2,
-  subtext,
-  heroHeadlineSize,
-  bodyTextSize,
-}: HeroProps = {}) {
+export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroProps = {}) {
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
   const sub = subtext?.trim() || DEFAULT_SUBTEXT;
-  const headlineSizeClasses = cn(
-    heroHeadlineSize?.trim() || HEADLINE_CLAMP_SIZE,
-    HEADLINE_MOBILE_CLAMP,
+
+  const mobileHeadlineSize = settings?.mobile_hero_headline_size?.trim() || DEFAULT_MOBILE_HEADLINE;
+  const desktopHeadlineSize = settings?.hero_headline_size?.trim() || DEFAULT_DESKTOP_HEADLINE;
+
+  const headlineStyle = { '--mobile-hl': mobileHeadlineSize } as CSSProperties;
+  const headlineClass = cn(
+    'w-full justify-center font-display uppercase leading-[0.95] tracking-tight text-white sm:leading-[0.92]',
+    'max-sm:!text-[var(--mobile-hl)]',
+    desktopHeadlineSize,
   );
-  const bodySizeClass = bodyTextSize?.trim() || 'text-sm sm:text-base';
+
+  const bodyDesktop = settings?.body_text_size?.trim() || 'text-base';
+  const heroBodyMobile = settings?.mobile_body_text_size?.trim()
+    ? `max-sm:${settings.mobile_body_text_size.trim()}`
+    : 'max-sm:text-sm';
 
   return (
     <section className="relative flex flex-col items-center overflow-hidden" aria-label="Hero">
@@ -86,16 +86,18 @@ export function Hero({
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center sm:gap-2">
           <SplitText
             text={line1}
-            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeClasses} leading-[0.95] sm:leading-[0.92]`}
+            style={headlineStyle}
+            className={cn('justify-center', headlineClass)}
             from="bottom"
             splitBy="words"
             delay={0.1}
           />
 
-          <div className={cn('font-display w-full uppercase tracking-tight', headlineSizeClasses)}>
+          <div className="font-display w-full uppercase tracking-tight">
             <SplitText
               text={line2}
-              className="justify-center text-white leading-[0.95] sm:leading-[0.92]"
+              style={headlineStyle}
+              className={cn('justify-center', headlineClass)}
               from="bottom"
               splitBy="words"
               delay={0.25}
@@ -112,7 +114,13 @@ export function Hero({
         >
           <BlurText
             text={sub}
-            className={`mx-auto justify-start text-left font-light leading-relaxed text-gray-400 text-balance sm:justify-center sm:text-center ${bodySizeClass}`}
+            className={cn(
+              'mx-auto justify-start text-left font-light leading-relaxed text-gray-400 text-balance sm:justify-center sm:text-center',
+              heroBodyMobile,
+              bodyDesktop.includes(' ')
+                ? bodyDesktop
+                : `sm:${bodyDesktop}`,
+            )}
             delay={0.4}
             stepDelay={0.03}
           />
