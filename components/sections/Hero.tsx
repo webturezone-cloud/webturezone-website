@@ -30,7 +30,7 @@ const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
 /** Mobile-safe headline sizing (CMS size overrides when set). */
-const HEADLINE_CLAMP = 'text-[clamp(1.6rem,7vw,6rem)] leading-[0.9] sm:leading-[0.92]';
+const HEADLINE_CLAMP_SIZE = 'text-[clamp(1.1rem,5.5vw,6rem)]';
 
 export function Hero({
   headlineLine1,
@@ -42,10 +42,7 @@ export function Hero({
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
   const sub = subtext?.trim() || DEFAULT_SUBTEXT;
-  const cmsHeadlineSize = heroHeadlineSize?.trim();
-  const headlineSizeClass = cmsHeadlineSize
-    ? `${cmsHeadlineSize} leading-[0.9] sm:leading-[0.92]`
-    : HEADLINE_CLAMP;
+  const headlineSizeOnly = heroHeadlineSize?.trim() || HEADLINE_CLAMP_SIZE;
   const bodySizeClass = bodyTextSize?.trim() || 'text-sm sm:text-base';
 
   return (
@@ -77,19 +74,19 @@ export function Hero({
           </span>
         </motion.div>
 
-        <div className="mx-auto w-full max-w-4xl text-center">
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center sm:gap-2">
           <SplitText
             text={line1}
-            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeClass}`}
+            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeOnly} leading-[0.95] sm:leading-[0.92]`}
             from="bottom"
             splitBy="words"
             delay={0.1}
           />
 
-          <div className={`mt-0.5 font-display uppercase tracking-tight sm:mt-1 ${headlineSizeClass}`}>
+          <div className={`font-display w-full uppercase tracking-tight ${headlineSizeOnly}`}>
             <SplitText
               text={line2}
-              className="justify-center text-white"
+              className="justify-center text-white leading-[0.95] sm:leading-[0.92]"
               from="bottom"
               splitBy="words"
               delay={0.25}
