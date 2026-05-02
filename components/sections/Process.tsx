@@ -6,8 +6,13 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
 import { PROCESS_STEPS, SECTION_HEADINGS, SECTION_LABELS } from '@/lib/constants';
 import { fadeUp } from '@/lib/variants';
 
-export function Process() {
-  const processTitle = `${SECTION_HEADINGS.process.before} ${SECTION_HEADINGS.process.accent}`;
+type ProcessProps = {
+  heading?: string;
+};
+
+export function Process({ heading }: ProcessProps = {}) {
+  const fallbackTitle = `${SECTION_HEADINGS.process.before} ${SECTION_HEADINGS.process.accent}`;
+  const processTitle = heading?.trim() || fallbackTitle;
 
   return (
     <section id="process" className="py-16 sm:py-24 lg:py-32" aria-label="Process">

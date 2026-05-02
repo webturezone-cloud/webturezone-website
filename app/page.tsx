@@ -8,20 +8,34 @@ import { WhyUs } from '@/components/sections/WhyUs';
 import { Process } from '@/components/sections/Process';
 import { CTA } from '@/components/sections/CTA';
 import { Footer } from '@/components/sections/Footer';
+import { getSiteSettingsServer } from '@/lib/site-settings';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const settings = await getSiteSettingsServer();
+
+  const serviceImages: Record<string, string> = {
+    '01': settings.google_ads_image,
+    '02': settings.meta_ads_image,
+    '03': settings.web_dev_image,
+    '04': settings.automation_image,
+  };
+
   return (
     <>
       <Navbar />
       <main>
-        <Hero />
+        <Hero
+          headlineLine1={settings.hero_headline_1}
+          headlineLine2={settings.hero_headline_2}
+          subtext={settings.hero_subtext}
+        />
         <Marquee />
         <TrustStrip />
-        <Services />
-        <Results />
-        <WhyUs />
-        <Process />
-        <CTA />
+        <Services heading={settings.services_heading} imageOverrides={serviceImages} />
+        <Results heading={settings.results_heading} />
+        <WhyUs heading={settings.whyus_heading} />
+        <Process heading={settings.process_heading} />
+        <CTA heading={settings.cta_heading} />
       </main>
       <Footer />
     </>

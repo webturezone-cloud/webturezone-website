@@ -11,13 +11,26 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export function Services() {
+type ServicesProps = {
+  heading?: string;
+  imageOverrides?: Record<string, string>;
+};
+
+export function Services({ heading, imageOverrides }: ServicesProps = {}) {
+  const trimmedHeading = heading?.trim();
+
   return (
     <section id="services" className="bg-black py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <SectionLabel>WHAT WE DO</SectionLabel>
         <h2 className="font-display mb-3 mt-3 text-center text-[clamp(1.8rem,5vw,5rem)] uppercase">
-          Four Weapons. <span className="text-blue-500">One Agency.</span>
+          {trimmedHeading ? (
+            <span className="text-white">{trimmedHeading}</span>
+          ) : (
+            <>
+              Four Weapons. <span className="text-blue-500">One Agency.</span>
+            </>
+          )}
         </h2>
         <p className="mx-auto max-w-xl text-center text-sm font-light leading-relaxed text-gray-400">
           {SERVICES_SECTION.subtext}
@@ -26,6 +39,8 @@ export function Services() {
         <div className="mt-16 grid grid-cols-1 gap-5 lg:grid-cols-2">
           {SERVICES.map((service) => {
             const Icon = service.icon;
+            const overrideSrc = imageOverrides?.[service.num]?.trim();
+            const imageSrc = overrideSrc || service.image;
             return (
               <motion.div
                 key={service.num}
@@ -63,7 +78,7 @@ export function Services() {
                   />
                   <div className="relative z-10 flex h-full w-full items-center justify-center p-6">
                     <Image
-                      src={service.image}
+                      src={imageSrc}
                       alt={service.title}
                       width={200}
                       height={200}

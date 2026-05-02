@@ -11,8 +11,13 @@ const TRUST_POINTS = [
   'No pressure, just clarity',
 ] as const;
 
-export function CTA() {
-  const headline = `${CTA_SECTION.headlineLine1} ${CTA_SECTION.headlineLine2}`;
+type CTAProps = {
+  heading?: string;
+};
+
+export function CTA({ heading }: CTAProps = {}) {
+  const fallback = `${CTA_SECTION.headlineLine1} ${CTA_SECTION.headlineLine2}`;
+  const headline = heading?.trim() || fallback;
 
   return (
     <section

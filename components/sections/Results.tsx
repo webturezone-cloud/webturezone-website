@@ -1,7 +1,13 @@
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { RESULTS, SECTION_HEADINGS, SECTION_LABELS } from '@/lib/constants';
 
-export function Results() {
+type ResultsProps = {
+  heading?: string;
+};
+
+export function Results({ heading }: ResultsProps = {}) {
+  const trimmedHeading = heading?.trim();
+
   return (
     <section id="results" className="border-y border-white/[0.07] bg-surface py-16 sm:py-20 lg:py-24" aria-label="Results">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-12">
@@ -9,8 +15,14 @@ export function Results() {
           <SectionLabel>{SECTION_LABELS.results}</SectionLabel>
         </div>
         <h2 className="mx-auto mt-3 max-w-4xl text-center font-display text-[clamp(1.8rem,7vw,5rem)] uppercase leading-[1.05] tracking-tight text-balance">
-          {SECTION_HEADINGS.results.before}{' '}
-          <span className="text-blue">{SECTION_HEADINGS.results.accent}</span>
+          {trimmedHeading ? (
+            <span className="text-white">{trimmedHeading}</span>
+          ) : (
+            <>
+              {SECTION_HEADINGS.results.before}{' '}
+              <span className="text-blue">{SECTION_HEADINGS.results.accent}</span>
+            </>
+          )}
         </h2>
         <div className="mt-12 grid grid-cols-2 gap-px border border-white/[0.07] bg-white/[0.07] lg:grid-cols-5">
           {RESULTS.map((result, index) => (

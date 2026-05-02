@@ -12,7 +12,22 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export function Hero() {
+type HeroProps = {
+  headlineLine1?: string;
+  headlineLine2?: string;
+  subtext?: string;
+};
+
+const DEFAULT_LINE_1 = "We Don't Run Ads.";
+const DEFAULT_LINE_2 = 'We Engineer Results.';
+const DEFAULT_SUBTEXT =
+  'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
+
+export function Hero({ headlineLine1, headlineLine2, subtext }: HeroProps = {}) {
+  const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
+  const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
+  const sub = subtext?.trim() || DEFAULT_SUBTEXT;
+
   return (
     <section
       className="relative flex flex-col items-center overflow-hidden"
@@ -47,7 +62,7 @@ export function Hero() {
 
         <div className="mx-auto w-full max-w-4xl text-center">
           <SplitText
-            text="We Don't Run Ads."
+            text={line1}
             className="font-display justify-center text-3xl uppercase leading-[1.05] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
             from="bottom"
             splitBy="words"
@@ -55,20 +70,18 @@ export function Hero() {
           />
 
           <div className="mt-0.5 font-display text-3xl uppercase leading-[1.05] tracking-tight sm:mt-1 sm:text-4xl md:text-5xl lg:text-6xl">
-            <span className="text-white">We </span>
             <SplitText
-              text="Engineer"
-              className="justify-center text-blue"
+              text={line2}
+              className="justify-center text-white"
               from="bottom"
               splitBy="words"
               delay={0.25}
             />
-            <span className="text-white"> Results.</span>
           </div>
         </div>
 
         <BlurText
-          text="From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue."
+          text={sub}
           className="mx-auto mt-4 max-w-xl justify-center text-center text-sm font-light leading-relaxed text-gray-400 text-balance sm:max-w-2xl sm:text-base"
           delay={0.4}
           stepDelay={0.03}
