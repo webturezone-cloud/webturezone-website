@@ -55,7 +55,6 @@ export function Services({
 
         <div className="mt-16 grid grid-cols-1 gap-5 lg:grid-cols-2">
           {SERVICES.map((service) => {
-            const Icon = service.icon;
             const overrideSrc = imageOverrides?.[service.num]?.trim();
             const imageSrc = overrideSrc || service.image;
             return (
@@ -65,13 +64,31 @@ export function Services({
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.1 }}
-                className="group relative flex min-h-0 flex-col items-stretch overflow-hidden rounded-2xl border border-blue-500/20 bg-[#080d1a] transition-colors duration-300 hover:border-blue-500/40 sm:min-h-[240px] sm:flex-row"
+                className="group relative flex min-h-0 flex-col overflow-hidden rounded-2xl border border-blue-500/20 bg-[#080d1a] transition-colors duration-300 hover:border-blue-500/40 sm:min-h-[240px] sm:flex-row sm:items-stretch"
               >
-                <div className="z-10 flex flex-1 flex-col justify-between p-7 sm:p-8">
+                {/* Image first on mobile */}
+                <div
+                  className="relative order-first flex min-h-[180px] flex-shrink-0 items-center justify-center overflow-hidden border-b border-blue-500/10 bg-[#050a15] sm:order-last sm:min-h-0 sm:w-[220px] sm:border-b-0 sm:border-l sm:border-blue-500/10 lg:w-[260px]"
+                >
+                  <div
+                    className="absolute bottom-0 left-1/2 h-8 w-32 -translate-x-1/2 rounded-full bg-blue-500/30 blur-2xl"
+                    aria-hidden
+                  />
+                  <div className="relative z-10 flex h-full w-full items-center justify-center p-6">
+                    <Image
+                      src={imageSrc}
+                      alt={service.title}
+                      width={200}
+                      height={200}
+                      unoptimized
+                      className="h-[130px] w-[130px] object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 sm:h-[180px] sm:w-[180px]"
+                    />
+                  </div>
+                </div>
+
+                {/* Text second on mobile */}
+                <div className="relative z-10 order-last flex flex-1 flex-col justify-between p-6 sm:order-first sm:p-8">
                   <div className="flex flex-col gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-blue-500/30 bg-blue-600/20">
-                      <Icon className="text-blue-400" size={18} aria-hidden />
-                    </div>
                     <span className="inline-flex w-fit items-center rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 font-mono text-[0.65rem] uppercase tracking-widest text-blue-400">
                       {service.num} · {service.title}
                     </span>
@@ -88,23 +105,6 @@ export function Services({
                   >
                     Learn More →
                   </Link>
-                </div>
-
-                <div className="relative flex min-h-[140px] shrink-0 items-center justify-center overflow-hidden border-t border-blue-500/10 bg-[#050a15] sm:min-h-0 sm:w-[220px] sm:border-l sm:border-t-0 sm:border-blue-500/10 lg:w-[260px]">
-                  <div
-                    className="absolute bottom-0 left-1/2 h-8 w-32 -translate-x-1/2 rounded-full bg-blue-500/30 blur-2xl"
-                    aria-hidden
-                  />
-                  <div className="relative z-10 flex h-full w-full items-center justify-center p-6">
-                    <Image
-                      src={imageSrc}
-                      alt={service.title}
-                      width={200}
-                      height={200}
-                      unoptimized
-                      className="h-[120px] w-[120px] object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 sm:h-[200px] sm:w-[200px]"
-                    />
-                  </div>
                 </div>
               </motion.div>
             );

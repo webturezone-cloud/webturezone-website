@@ -29,7 +29,8 @@ const DEFAULT_LINE_2 = 'We Engineer Results.';
 const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
-const FALLBACK_HEADLINE_SIZE = 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl';
+/** Mobile-safe headline sizing (CMS size overrides when set). */
+const HEADLINE_CLAMP = 'text-[clamp(1.6rem,7vw,6rem)] leading-[0.9] sm:leading-[0.92]';
 
 export function Hero({
   headlineLine1,
@@ -41,7 +42,10 @@ export function Hero({
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
   const sub = subtext?.trim() || DEFAULT_SUBTEXT;
-  const headlineSizeClass = heroHeadlineSize?.trim() || FALLBACK_HEADLINE_SIZE;
+  const cmsHeadlineSize = heroHeadlineSize?.trim();
+  const headlineSizeClass = cmsHeadlineSize
+    ? `${cmsHeadlineSize} leading-[0.9] sm:leading-[0.92]`
+    : HEADLINE_CLAMP;
   const bodySizeClass = bodyTextSize?.trim() || 'text-sm sm:text-base';
 
   return (
@@ -76,13 +80,13 @@ export function Hero({
         <div className="mx-auto w-full max-w-4xl text-center">
           <SplitText
             text={line1}
-            className={`font-display justify-center ${headlineSizeClass} uppercase leading-[1.05] tracking-tight text-white`}
+            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeClass}`}
             from="bottom"
             splitBy="words"
             delay={0.1}
           />
 
-          <div className={`mt-0.5 font-display ${headlineSizeClass} uppercase leading-[1.05] tracking-tight sm:mt-1`}>
+          <div className={`mt-0.5 font-display uppercase tracking-tight sm:mt-1 ${headlineSizeClass}`}>
             <SplitText
               text={line2}
               className="justify-center text-white"

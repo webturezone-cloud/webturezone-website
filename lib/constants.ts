@@ -1,5 +1,3 @@
-import { BarChart2, Code2, Search, Zap } from 'lucide-react';
-
 export const NAV_LINKS = ['Services', 'Results', 'Process'] as const;
 
 export const SITE = {
@@ -42,7 +40,6 @@ export const SERVICES = [
     num: '01',
     title: 'Google Ads',
     desc: 'Capture high-intent buyers searching for your services with conversion-focused campaigns that turn clicks into customers.',
-    icon: Search,
     image: '/images/google-ads.png',
     href: '/services/google-ads',
   },
@@ -50,7 +47,6 @@ export const SERVICES = [
     num: '02',
     title: 'Meta Ads',
     desc: 'Launch scroll-stopping Facebook and Instagram campaigns built to generate leads, sales, and consistent brand growth.',
-    icon: BarChart2,
     image: '/images/meta-ads.png',
     href: '/services/meta-ads',
   },
@@ -58,7 +54,6 @@ export const SERVICES = [
     num: '03',
     title: 'Website Development',
     desc: 'Build fast, modern, conversion-focused websites that look premium and guide visitors toward action.',
-    icon: Code2,
     image: '/images/website-development.png',
     href: '/services/web-development',
   },
@@ -66,7 +61,6 @@ export const SERVICES = [
     num: '04',
     title: 'Automation Systems',
     desc: 'CRM flows, lead nurture sequences, reporting dashboards, and workflows that save time and scale revenue.',
-    icon: Zap,
     image: '/images/automation-systems.png',
     href: '/services/automation',
   },
