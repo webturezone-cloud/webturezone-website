@@ -7,6 +7,10 @@
     scroll-behavior: smooth;
   }
 
+  body {
+    font-family: var(--font-body);
+  }
+
   :root {
     --bg-primary: #020818;
     --bg-secondary: #050d1f;

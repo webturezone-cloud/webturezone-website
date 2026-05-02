@@ -1,22 +1,22 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Bebas_Neue, DM_Sans } from 'next/font/google';
 import { SiteThemeOverride } from '@/components/admin/SiteThemeOverride';
 import { getSiteSettingsServer } from '@/lib/site-settings';
 import './globals.css';
 
-const inter = Inter({
+export const revalidate = 0;
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-display',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
 });
 
-const playfair = Playfair_Display({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-body',
   display: 'swap',
-  weight: ['400', '600', '700'],
-  style: ['normal', 'italic'],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const settings = await getSiteSettingsServer();
 
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${dmSans.variable}`}>
       <head>
         <SiteThemeOverride settings={settings} />
       </head>

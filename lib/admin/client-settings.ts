@@ -21,7 +21,16 @@ export async function updateSetting(key: string, value: string): Promise<boolean
   const { error } = await supabase
     .from('site_settings')
     .upsert({ key, value }, { onConflict: 'key' });
-  return !error;
+
+  if (error) return false;
+
+  try {
+    await fetch('/api/revalidate', { method: 'POST' });
+  } catch {
+    // best-effort
+  }
+
+  return true;
 }
 
 export async function uploadMedia(file: File, folder: string): Promise<string | null> {

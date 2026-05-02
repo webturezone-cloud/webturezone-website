@@ -9,13 +9,19 @@ import { SplitText } from '@/components/ui/SplitText';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
 };
 
 type HeroProps = {
   headlineLine1?: string;
   headlineLine2?: string;
   subtext?: string;
+  heroHeadlineSize?: string;
+  bodyTextSize?: string;
 };
 
 const DEFAULT_LINE_1 = "We Don't Run Ads.";
@@ -23,16 +29,23 @@ const DEFAULT_LINE_2 = 'We Engineer Results.';
 const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
-export function Hero({ headlineLine1, headlineLine2, subtext }: HeroProps = {}) {
+const FALLBACK_HEADLINE_SIZE = 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl';
+
+export function Hero({
+  headlineLine1,
+  headlineLine2,
+  subtext,
+  heroHeadlineSize,
+  bodyTextSize,
+}: HeroProps = {}) {
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
   const sub = subtext?.trim() || DEFAULT_SUBTEXT;
+  const headlineSizeClass = heroHeadlineSize?.trim() || FALLBACK_HEADLINE_SIZE;
+  const bodySizeClass = bodyTextSize?.trim() || 'text-sm sm:text-base';
 
   return (
-    <section
-      className="relative flex flex-col items-center overflow-hidden"
-      aria-label="Hero"
-    >
+    <section className="relative flex flex-col items-center overflow-hidden" aria-label="Hero">
       <div className="absolute inset-0 z-0">
         <Aurora
           colorStops={['#020202', '#0a1628', '#4E66D4']}
@@ -63,13 +76,13 @@ export function Hero({ headlineLine1, headlineLine2, subtext }: HeroProps = {}) 
         <div className="mx-auto w-full max-w-4xl text-center">
           <SplitText
             text={line1}
-            className="font-display justify-center text-3xl uppercase leading-[1.05] tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
+            className={`font-display justify-center ${headlineSizeClass} uppercase leading-[1.05] tracking-tight text-white`}
             from="bottom"
             splitBy="words"
             delay={0.1}
           />
 
-          <div className="mt-0.5 font-display text-3xl uppercase leading-[1.05] tracking-tight sm:mt-1 sm:text-4xl md:text-5xl lg:text-6xl">
+          <div className={`mt-0.5 font-display ${headlineSizeClass} uppercase leading-[1.05] tracking-tight sm:mt-1`}>
             <SplitText
               text={line2}
               className="justify-center text-white"
@@ -80,12 +93,20 @@ export function Hero({ headlineLine1, headlineLine2, subtext }: HeroProps = {}) 
           </div>
         </div>
 
-        <BlurText
-          text={sub}
-          className="mx-auto mt-4 max-w-xl justify-center text-center text-sm font-light leading-relaxed text-gray-400 text-balance sm:max-w-2xl sm:text-base"
-          delay={0.4}
-          stepDelay={0.03}
-        />
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mx-auto mt-4 w-full max-w-xl sm:max-w-2xl"
+        >
+          <BlurText
+            text={sub}
+            className={`mx-auto justify-start text-left font-light leading-relaxed text-gray-400 text-balance sm:justify-center sm:text-center ${bodySizeClass}`}
+            delay={0.4}
+            stepDelay={0.03}
+          />
+        </motion.div>
 
         <div className="mx-auto mt-4 flex w-full max-w-md min-w-0 flex-nowrap items-center justify-center gap-3 sm:mt-5 sm:gap-4">
           <Magnet strength={0.3} className="block min-w-0 flex-1">
@@ -114,10 +135,17 @@ export function Hero({ headlineLine1, headlineLine2, subtext }: HeroProps = {}) 
             { value: '98%', label: 'Client Retention' },
             { value: '5M+', label: 'Ad Spend Managed' },
           ].map((stat) => (
-            <div key={stat.label} className="text-center">
+            <motion.div
+              key={stat.label}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              className="text-center"
+            >
               <div className="font-display text-4xl leading-none text-white sm:text-5xl">{stat.value}</div>
               <div className="mt-1 text-[0.7rem] uppercase tracking-[0.1em] text-gray-500">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

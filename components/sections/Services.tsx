@@ -8,22 +8,37 @@ import { SERVICES, SERVICES_SECTION } from '@/lib/constants';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 },
+  },
 };
 
 type ServicesProps = {
   heading?: string;
   imageOverrides?: Record<string, string>;
+  sectionHeadingSize?: string;
+  bodyTextSize?: string;
 };
 
-export function Services({ heading, imageOverrides }: ServicesProps = {}) {
+const FALLBACK_SECTION_HEADING = 'text-[clamp(1.8rem,5vw,5rem)]';
+
+export function Services({
+  heading,
+  imageOverrides,
+  sectionHeadingSize,
+  bodyTextSize,
+}: ServicesProps = {}) {
   const trimmedHeading = heading?.trim();
+  const sectionSize = sectionHeadingSize?.trim() || FALLBACK_SECTION_HEADING;
+  const bodySize = bodyTextSize?.trim() || 'text-sm';
 
   return (
     <section id="services" className="bg-black py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <SectionLabel>WHAT WE DO</SectionLabel>
-        <h2 className="font-display mb-3 mt-3 text-center text-[clamp(1.8rem,5vw,5rem)] uppercase">
+        <h2 className={`font-display mb-3 mt-3 text-center uppercase ${sectionSize}`}>
           {trimmedHeading ? (
             <span className="text-white">{trimmedHeading}</span>
           ) : (
@@ -32,7 +47,9 @@ export function Services({ heading, imageOverrides }: ServicesProps = {}) {
             </>
           )}
         </h2>
-        <p className="mx-auto max-w-xl text-center text-sm font-light leading-relaxed text-gray-400">
+        <p
+          className={`mx-auto max-w-xl text-center font-light leading-relaxed text-gray-400 ${bodySize}`}
+        >
           {SERVICES_SECTION.subtext}
         </p>
 
@@ -61,7 +78,9 @@ export function Services({ heading, imageOverrides }: ServicesProps = {}) {
                     <h3 className="font-display text-2xl uppercase leading-tight tracking-wide text-white sm:text-3xl">
                       {service.title}
                     </h3>
-                    <p className="max-w-xs text-sm font-light leading-relaxed text-gray-400">{service.desc}</p>
+                    <p className={`max-w-xs font-light leading-relaxed text-gray-400 ${bodySize}`}>
+                      {service.desc}
+                    </p>
                   </div>
                   <Link
                     href={service.href}

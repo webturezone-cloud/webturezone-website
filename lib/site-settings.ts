@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { createClient } from '@supabase/supabase-js';
 import { tryGetSupabasePublicEnv } from './supabase/env';
 
@@ -13,6 +14,9 @@ export const SITE_SETTINGS_DEFAULTS: SiteSettings = {
   whyus_heading: 'We Think. We Build. You Scale.',
   process_heading: 'Simple Process. Serious Results.',
   cta_heading: 'Ready To Stop Wasting Budget?',
+  hero_headline_size: 'text-7xl',
+  section_heading_size: 'text-5xl',
+  body_text_size: 'text-base',
   font_display: 'Bebas Neue',
   font_body: 'DM Sans',
   color_primary: '#020202',
@@ -28,6 +32,7 @@ export const SITE_SETTINGS_DEFAULTS: SiteSettings = {
 
 /** Server-side fetch (used in RSC + route handlers). Falls back to defaults. */
 export async function getSiteSettingsServer(): Promise<SiteSettings> {
+  noStore();
   const env = tryGetSupabasePublicEnv();
   if (!env) return { ...SITE_SETTINGS_DEFAULTS };
 

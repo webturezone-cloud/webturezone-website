@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { LayoutGrid, Menu, ChevronDown, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Magnet } from '@/components/ui/Magnet';

@@ -36,9 +36,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        accent: ['var(--font-playfair)', 'Georgia', 'serif'],
+        sans: ['var(--font-body)', 'sans-serif'],
+        display: ['var(--font-display)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
       },
       fontSize: {
         hero: ['clamp(2.8rem,6vw,4.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],

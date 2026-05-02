@@ -5,16 +5,45 @@ import { getSiteSettings, updateSetting } from '@/lib/admin/client-settings';
 import { SITE_SETTINGS_DEFAULTS, type SiteSettings } from '@/lib/site-settings';
 import { CheckCircle, Loader2 } from 'lucide-react';
 
-const CONTENT_FIELDS: {
+type ContentField =
+  | { key: string; label: string; type: 'text' | 'textarea' }
+  | { key: string; label: string; type: 'select'; options: readonly string[] };
+
+type ContentSection = {
   section: string;
-  fields: { key: string; label: string; type: 'text' | 'textarea' }[];
-}[] = [
+  fields: ContentField[];
+};
+
+const CONTENT_FIELDS: ContentSection[] = [
   {
     section: 'Hero Section',
     fields: [
       { key: 'hero_headline_1', label: 'Headline Line 1', type: 'text' },
       { key: 'hero_headline_2', label: 'Headline Line 2', type: 'text' },
       { key: 'hero_subtext', label: 'Subtext', type: 'textarea' },
+    ],
+  },
+  {
+    section: 'Font Sizes',
+    fields: [
+      {
+        key: 'hero_headline_size',
+        label: 'Hero Headline Size',
+        type: 'select',
+        options: ['text-5xl', 'text-6xl', 'text-7xl', 'text-8xl', 'text-9xl'],
+      },
+      {
+        key: 'section_heading_size',
+        label: 'Section Heading Size',
+        type: 'select',
+        options: ['text-3xl', 'text-4xl', 'text-5xl', 'text-6xl'],
+      },
+      {
+        key: 'body_text_size',
+        label: 'Body Text Size',
+        type: 'select',
+        options: ['text-sm', 'text-base', 'text-lg', 'text-xl'],
+      },
     ],
   },
   {
@@ -95,7 +124,20 @@ export default function ContentPage() {
                     {field.label}
                   </label>
 
-                  {field.type === 'textarea' ? (
+                  {field.type === 'select' ? (
+                    <select
+                      id={`field-${field.key}`}
+                      value={settings[field.key] || field.options[0]}
+                      onChange={(e) => setSettings({ ...settings, [field.key]: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-[#0a0f1e] px-4 py-3 text-sm text-white outline-none transition-colors focus:border-blue-500/50"
+                    >
+                      {field.options.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  ) : field.type === 'textarea' ? (
                     <textarea
                       id={`field-${field.key}`}
                       value={settings[field.key] ?? ''}

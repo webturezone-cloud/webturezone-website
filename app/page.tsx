@@ -10,6 +10,8 @@ import { CTA } from '@/components/sections/CTA';
 import { Footer } from '@/components/sections/Footer';
 import { getSiteSettingsServer } from '@/lib/site-settings';
 
+export const revalidate = 0;
+
 export default async function HomePage() {
   const settings = await getSiteSettingsServer();
 
@@ -20,6 +22,9 @@ export default async function HomePage() {
     '04': settings.automation_image,
   };
 
+  const sectionHeadingSize = settings.section_heading_size;
+  const bodyTextSize = settings.body_text_size;
+
   return (
     <>
       <Navbar />
@@ -28,14 +33,37 @@ export default async function HomePage() {
           headlineLine1={settings.hero_headline_1}
           headlineLine2={settings.hero_headline_2}
           subtext={settings.hero_subtext}
+          heroHeadlineSize={settings.hero_headline_size}
+          bodyTextSize={bodyTextSize}
         />
         <Marquee />
         <TrustStrip />
-        <Services heading={settings.services_heading} imageOverrides={serviceImages} />
-        <Results heading={settings.results_heading} />
-        <WhyUs heading={settings.whyus_heading} />
-        <Process heading={settings.process_heading} />
-        <CTA heading={settings.cta_heading} />
+        <Services
+          heading={settings.services_heading}
+          imageOverrides={serviceImages}
+          sectionHeadingSize={sectionHeadingSize}
+          bodyTextSize={bodyTextSize}
+        />
+        <Results
+          heading={settings.results_heading}
+          sectionHeadingSize={sectionHeadingSize}
+          bodyTextSize={bodyTextSize}
+        />
+        <WhyUs
+          heading={settings.whyus_heading}
+          sectionHeadingSize={sectionHeadingSize}
+          bodyTextSize={bodyTextSize}
+        />
+        <Process
+          heading={settings.process_heading}
+          sectionHeadingSize={sectionHeadingSize}
+          bodyTextSize={bodyTextSize}
+        />
+        <CTA
+          heading={settings.cta_heading}
+          sectionHeadingSize={sectionHeadingSize}
+          bodyTextSize={bodyTextSize}
+        />
       </main>
       <Footer />
     </>
