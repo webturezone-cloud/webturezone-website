@@ -7,6 +7,7 @@ import { LayoutGrid, Menu, ChevronDown, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Magnet } from '@/components/ui/Magnet';
 import { NAV_CTA, NAV_CTA_HREF, NAV_LINKS, SITE } from '@/lib/constants';
+import { pixel } from '@/lib/pixel';
 import { NAV_SERVICE_LINKS } from '@/lib/servicePages';
 
 export function Navbar() {
@@ -114,7 +115,7 @@ export function Navbar() {
 
         <div className="hidden flex flex-1 items-center justify-end lg:flex">
           <Magnet strength={0.25}>
-            <Button variant="nav" href={NAV_CTA_HREF}>
+            <Button variant="nav" href={NAV_CTA_HREF} onClick={() => pixel.initiateCheckout()}>
               {NAV_CTA}
             </Button>
           </Magnet>
@@ -161,7 +162,10 @@ export function Navbar() {
                   variant="nav"
                   className="w-full justify-center"
                   href={NAV_CTA_HREF}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    pixel.initiateCheckout();
+                  }}
                 >
                   {NAV_CTA}
                 </Button>

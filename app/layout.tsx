@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Bebas_Neue, DM_Sans } from 'next/font/google';
+import FacebookPixel from '@/components/FacebookPixel';
 import { SiteThemeOverride } from '@/components/admin/SiteThemeOverride';
 import { getSiteSettingsServer } from '@/lib/site-settings';
 import './globals.css';
@@ -54,6 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SiteThemeOverride settings={settings} />
       </head>
       <body className="bg-navy font-sans text-[0.9rem] font-normal leading-relaxed text-white antialiased">
+        <FacebookPixel />
         {children}
       </body>
     </html>

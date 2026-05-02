@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { CTA_SERVICE_OPTIONS } from '@/lib/constants';
+import { pixel } from '@/lib/pixel';
 import { submitContactSubmission } from '@/lib/contactSubmission';
 
 const inputClass =
@@ -68,6 +69,7 @@ export function ContactLeadForm({
     setLoading(false);
 
     if (result.ok) {
+      pixel.lead(formData.service || 'General Inquiry');
       form.reset();
       setPhone('');
       router.push('/thank-you');
@@ -193,6 +195,9 @@ export function ContactLeadForm({
         type="submit"
         disabled={loading}
         aria-busy={loading}
+        onClick={() => {
+          if (idPrefix === 'cta') pixel.schedule();
+        }}
         className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-blue px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:bg-blue-dim focus:outline-none focus:ring-2 focus:ring-blue/40 focus:ring-offset-2 focus:ring-offset-navy-secondary disabled:pointer-events-none disabled:opacity-60 sm:w-auto sm:min-h-0"
       >
         {loading ? 'Sending…' : submitLabel}

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import PixelTracker from '@/components/PixelTracker';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
@@ -27,6 +28,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#020202]">
+      <PixelTracker event="Contact" />
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <Aurora

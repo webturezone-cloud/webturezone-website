@@ -8,6 +8,7 @@ import { Magnet } from '@/components/ui/Magnet';
 import { Particles } from '@/components/ui/Particles';
 import { SplitText } from '@/components/ui/SplitText';
 import type { SiteSettings } from '@/lib/site-settings';
+import { pixel } from '@/lib/pixel';
 import { cn } from '@/lib/utils';
 
 const fadeUp = {
@@ -131,6 +132,7 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
             <a
               href="/contact"
               className="inline-flex w-full min-w-0 max-w-full items-center justify-center gap-1 whitespace-nowrap bg-blue px-4 py-2 text-center text-sm font-bold uppercase tracking-[0.06em] text-white transition-all hover:bg-blue-dim sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
+              onClick={() => pixel.schedule()}
             >
               Start Growing →
             </a>

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { Footer } from '@/components/sections/Footer';
 import { Navbar } from '@/components/sections/Navbar';
@@ -7,11 +8,14 @@ import type { ServicePageCopy } from '@/lib/servicePages';
 
 type Props = {
   copy: ServicePageCopy;
+  /** Pixel / analytics slot rendered as first node inside `<main>` (e.g. ViewContent trackers). */
+  trackingSlot?: ReactNode;
 };
 
-export function ServiceDetailPage({ copy }: Props) {
+export function ServiceDetailPage({ copy, trackingSlot }: Props) {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#020202]">
+      {trackingSlot}
       <div className="absolute inset-0 z-0">
         <Aurora
           colorStops={['#020202', '#0a1628', '#4E66D4']}
