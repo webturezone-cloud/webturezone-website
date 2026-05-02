@@ -8,16 +8,16 @@ export function Results() {
         <div className="mb-3 text-center">
           <SectionLabel>{SECTION_LABELS.results}</SectionLabel>
         </div>
-        <h2 className="mx-auto mt-3 max-w-4xl text-center font-display text-3xl uppercase leading-[1.05] tracking-tight text-balance sm:text-4xl lg:text-5xl">
+        <h2 className="mx-auto mt-3 max-w-4xl text-center font-display text-[clamp(1.8rem,7vw,5rem)] uppercase leading-[1.05] tracking-tight text-balance">
           {SECTION_HEADINGS.results.before}{' '}
           <span className="text-blue">{SECTION_HEADINGS.results.accent}</span>
         </h2>
-        <div className="mt-12 grid grid-cols-2 gap-px border border-white/[0.07] bg-white/[0.07] md:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-px border border-white/[0.07] bg-white/[0.07] lg:grid-cols-5">
           {RESULTS.map((result, index) => (
             <div
               key={result.metric}
-              className={`bg-black px-3 py-6 text-center sm:px-4 sm:py-8 ${
-                RESULTS.length % 2 !== 0 && index === RESULTS.length - 1 ? 'col-span-2 md:col-span-1' : ''
+              className={`bg-[#020202] px-4 py-8 text-center ${
+                RESULTS.length % 2 !== 0 && index === RESULTS.length - 1 ? 'col-span-2 lg:col-span-1' : ''
               }`}
             >
               <p className="font-display text-4xl text-blue sm:text-5xl lg:text-6xl">{result.value}</p>

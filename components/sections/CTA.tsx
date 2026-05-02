@@ -53,7 +53,7 @@ export function CTA() {
           <ContactLeadForm
             idPrefix="cta"
             submitLabel="Book My Strategy Call"
-            className="mx-auto w-full max-w-lg rounded-2xl border border-white/[0.1] bg-black/50 p-6 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8"
+            className="mx-auto w-full max-w-lg rounded-2xl border border-white/[0.1] bg-black/50 p-5 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8"
           />
         </div>
       </div>

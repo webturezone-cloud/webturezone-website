@@ -9,7 +9,7 @@ import { CTA_SERVICE_OPTIONS } from '@/lib/constants';
 import { submitContactSubmission } from '@/lib/contactSubmission';
 
 const inputClass =
-  'h-12 w-full rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-blue/50 focus:ring-2 focus:ring-blue/25';
+  'h-11 sm:h-12 w-full rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-blue/50 focus:ring-2 focus:ring-blue/25';
 
 const textareaClass =
   'min-h-[110px] w-full rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-blue/50 focus:ring-2 focus:ring-blue/25';
@@ -26,7 +26,7 @@ type ContactLeadFormProps = {
 export function ContactLeadForm({
   submitLabel,
   idPrefix,
-  className = 'w-full rounded-2xl border border-white/[0.1] bg-black/50 p-6 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8',
+  className = 'w-full rounded-2xl border border-white/[0.1] bg-black/50 p-5 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8',
 }: ContactLeadFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -193,7 +193,7 @@ export function ContactLeadForm({
         type="submit"
         disabled={loading}
         aria-busy={loading}
-        className="mt-5 flex h-12 w-full items-center justify-center rounded-lg bg-blue text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:bg-blue-dim focus:outline-none focus:ring-2 focus:ring-blue/40 focus:ring-offset-2 focus:ring-offset-navy-secondary disabled:pointer-events-none disabled:opacity-60"
+        className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-blue px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:bg-blue-dim focus:outline-none focus:ring-2 focus:ring-blue/40 focus:ring-offset-2 focus:ring-offset-navy-secondary disabled:pointer-events-none disabled:opacity-60 sm:w-auto sm:min-h-0"
       >
         {loading ? 'Sending…' : submitLabel}
       </button>

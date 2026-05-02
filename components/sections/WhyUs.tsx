@@ -12,21 +12,21 @@ export function WhyUs() {
   return (
     <section
       id="why-us"
-      className="border-y border-white/[0.07] bg-surface py-20 lg:py-24"
+      className="border-y border-white/[0.07] bg-surface py-16 lg:py-32"
       aria-label="Why WebTureZone"
     >
       <div className="mx-auto w-full max-w-6xl px-6">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="text-center lg:text-left">
             <SectionLabel className="text-center lg:text-left">{SECTION_LABELS.why}</SectionLabel>
-            <h2 className="mt-4 font-display text-4xl uppercase leading-[1.05] tracking-tight text-balance lg:text-5xl">
+            <h2 className="mt-4 font-display text-[clamp(2.2rem,6vw,4rem)] uppercase leading-[1.05] tracking-tight text-balance">
               {SECTION_HEADINGS.why.line1}
               <br />
               {SECTION_HEADINGS.why.line2}
               <br />
               <span className="text-blue">{SECTION_HEADINGS.why.accent}</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-sm font-light leading-relaxed text-slate-300 text-balance lg:mx-0">
+            <p className="mx-auto mt-4 max-w-full text-sm font-light leading-relaxed text-slate-300 text-balance lg:mx-0 lg:max-w-sm">
               {SECTION_HEADINGS.whySub}
             </p>
           </div>

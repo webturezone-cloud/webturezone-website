@@ -16,7 +16,7 @@ export function Services() {
     <section id="services" className="bg-black py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12">
         <SectionLabel>WHAT WE DO</SectionLabel>
-        <h2 className="font-display mb-3 mt-3 text-center text-[clamp(1.85rem,3.8vw,3.5rem)] uppercase">
+        <h2 className="font-display mb-3 mt-3 text-center text-[clamp(1.8rem,5vw,5rem)] uppercase">
           Four Weapons. <span className="text-blue-500">One Agency.</span>
         </h2>
         <p className="mx-auto max-w-xl text-center text-sm font-light leading-relaxed text-gray-400">
@@ -56,7 +56,7 @@ export function Services() {
                   </Link>
                 </div>
 
-                <div className="relative flex min-h-[180px] shrink-0 items-center justify-center overflow-hidden border-t border-blue-500/10 bg-[#050a15] sm:min-h-0 sm:w-[220px] sm:border-l sm:border-t-0 sm:border-blue-500/10 lg:w-[260px]">
+                <div className="relative flex min-h-[140px] shrink-0 items-center justify-center overflow-hidden border-t border-blue-500/10 bg-[#050a15] sm:min-h-0 sm:w-[220px] sm:border-l sm:border-t-0 sm:border-blue-500/10 lg:w-[260px]">
                   <div
                     className="absolute bottom-0 left-1/2 h-8 w-32 -translate-x-1/2 rounded-full bg-blue-500/30 blur-2xl"
                     aria-hidden
@@ -68,7 +68,7 @@ export function Services() {
                       width={200}
                       height={200}
                       unoptimized
-                      className="h-[160px] w-[160px] object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 sm:h-[200px] sm:w-[200px]"
+                      className="h-[120px] w-[120px] object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 sm:h-[200px] sm:w-[200px]"
                     />
                   </div>
                 </div>

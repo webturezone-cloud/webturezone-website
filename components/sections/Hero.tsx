@@ -94,7 +94,7 @@ export function Hero() {
           </Magnet>
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-2 justify-center gap-6 border-t border-white/[0.07] pt-6 sm:mt-9 sm:flex sm:flex-row sm:gap-10 sm:pt-7">
+        <div className="mt-8 grid w-full grid-cols-2 justify-center gap-8 border-t border-white/[0.07] pt-6 sm:mt-9 sm:flex sm:flex-row sm:gap-10 sm:pt-7">
           {[
             { value: '4×', label: 'Avg. ROAS Delivered' },
             { value: '200+', label: 'Campaigns Launched' },
@@ -102,8 +102,8 @@ export function Hero() {
             { value: '5M+', label: 'Ad Spend Managed' },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="font-display text-3xl leading-none text-white sm:text-4xl">{stat.value}</div>
-              <div className="mt-1 text-[0.65rem] uppercase tracking-[0.1em] text-gray-500">{stat.label}</div>
+              <div className="font-display text-4xl leading-none text-white sm:text-5xl">{stat.value}</div>
+              <div className="mt-1 text-[0.7rem] uppercase tracking-[0.1em] text-gray-500">{stat.label}</div>
             </div>
           ))}
         </div>

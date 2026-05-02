@@ -34,9 +34,15 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: 0 12px;
-  height: 48px;
+  height: 44px;
   gap: 8px;
   transition: border-color 0.2s;
+}
+
+@media (min-width: 640px) {
+  .phone-input-wrapper {
+    height: 48px;
+  }
 }
 
 .phone-input-wrapper:focus-within {

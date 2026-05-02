@@ -16,12 +16,12 @@ export function Process() {
         <div className="mx-auto mt-4 flex max-w-4xl justify-center text-center">
           <BlurText
             text={processTitle}
-            className="font-display justify-center text-3xl font-bold uppercase leading-[1.05] tracking-tight text-white text-balance sm:text-4xl lg:text-5xl"
+            className="font-display justify-center text-[clamp(1.8rem,5vw,5rem)] font-bold uppercase leading-[1.05] tracking-tight text-white text-balance"
             delay={0.1}
           />
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 divide-y divide-white/[0.07] overflow-hidden rounded-xl border border-white/[0.07] sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:mt-14 lg:grid-cols-4">
           {PROCESS_STEPS.map((step) => (
             <motion.div
               key={step.num}
@@ -29,11 +29,13 @@ export function Process() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="relative rounded-xl border border-accent/20 bg-canvas-card p-6 shadow-card-glow transition hover:border-accent/45 sm:p-8 lg:p-10"
+              className="relative bg-canvas-card p-6 sm:p-8 lg:p-10"
             >
               <span className="absolute right-5 top-5 font-sans text-xs text-accent">→</span>
-              <p className="mb-6 font-sans text-6xl font-bold leading-none text-accent/20 sm:text-8xl">{step.num}</p>
-              <h4 className="mb-3 font-sans text-[1.1rem] font-semibold text-white">{step.title}</h4>
+              <p className="mb-6 font-display text-6xl font-bold leading-none text-blue-500/20 sm:text-8xl">{step.num}</p>
+              <h4 className="mb-3 font-display text-xl font-semibold uppercase tracking-tight text-white sm:text-2xl">
+                {step.title}
+              </h4>
               <p className="text-left text-[0.85rem] leading-[1.65] text-white/50">{step.desc}</p>
             </motion.div>
           ))}
