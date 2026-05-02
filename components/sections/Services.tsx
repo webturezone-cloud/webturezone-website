@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SERVICES, SERVICES_SECTION } from '@/lib/constants';
@@ -47,12 +48,12 @@ export function Services() {
                     </h3>
                     <p className="max-w-xs text-sm font-light leading-relaxed text-gray-400">{service.desc}</p>
                   </div>
-                  <a
-                    href="/contact"
+                  <Link
+                    href={service.href}
                     className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-widest text-blue-400 transition-colors hover:bg-blue-500/20"
                   >
                     Learn More →
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="relative flex min-h-[180px] shrink-0 items-center justify-center overflow-hidden border-t border-blue-500/10 bg-[#050a15] sm:min-h-0 sm:w-[220px] sm:border-l sm:border-t-0 sm:border-blue-500/10 lg:w-[260px]">

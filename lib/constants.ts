@@ -44,6 +44,7 @@ export const SERVICES = [
     desc: 'Capture high-intent buyers searching for your services with conversion-focused campaigns that turn clicks into customers.',
     icon: Search,
     image: '/images/google-ads.png',
+    href: '/services/google-ads',
   },
   {
     num: '02',
@@ -51,6 +52,7 @@ export const SERVICES = [
     desc: 'Launch scroll-stopping Facebook and Instagram campaigns built to generate leads, sales, and consistent brand growth.',
     icon: BarChart2,
     image: '/images/meta-ads.png',
+    href: '/services/meta-ads',
   },
   {
     num: '03',
@@ -58,6 +60,7 @@ export const SERVICES = [
     desc: 'Build fast, modern, conversion-focused websites that look premium and guide visitors toward action.',
     icon: Code2,
     image: '/images/website-development.png',
+    href: '/services/web-development',
   },
   {
     num: '04',
@@ -65,6 +68,7 @@ export const SERVICES = [
     desc: 'CRM flows, lead nurture sequences, reporting dashboards, and workflows that save time and scale revenue.',
     icon: Zap,
     image: '/images/automation-systems.png',
+    href: '/services/automation',
   },
 ] as const;
 
