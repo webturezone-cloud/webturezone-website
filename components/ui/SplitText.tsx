@@ -89,7 +89,10 @@ export function SplitText({
   return (
     <motion.span
       ref={ref}
-      className={cn('inline-flex flex-wrap gap-x-[0.2em]', className)}
+      className={cn(
+        'inline-flex flex-wrap gap-x-[0.2em] max-sm:gap-x-[0.12em]',
+        className,
+      )}
       initial="hidden"
       animate={controls}
       variants={containerVariants}

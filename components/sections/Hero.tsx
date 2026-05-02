@@ -6,6 +6,7 @@ import { BlurText } from '@/components/ui/BlurText';
 import { Magnet } from '@/components/ui/Magnet';
 import { Particles } from '@/components/ui/Particles';
 import { SplitText } from '@/components/ui/SplitText';
+import { cn } from '@/lib/utils';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -29,8 +30,13 @@ const DEFAULT_LINE_2 = 'We Engineer Results.';
 const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
-/** Mobile-safe headline sizing (CMS size overrides when set). */
+/** Fallback when CMS hero headline size is empty. */
 const HEADLINE_CLAMP_SIZE = 'text-[clamp(0.85rem,4.5vw,6rem)]';
+/**
+ * Overrides fixed Tailwind sizes (e.g. saved `text-7xl` from CMS) below `sm`
+ * so wide hero lines fit on narrow viewports (~375px).
+ */
+const HEADLINE_MOBILE_CLAMP = 'max-sm:!text-[clamp(0.53rem,2.82vw,6rem)]';
 
 export function Hero({
   headlineLine1,
@@ -42,7 +48,10 @@ export function Hero({
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
   const sub = subtext?.trim() || DEFAULT_SUBTEXT;
-  const headlineSizeOnly = heroHeadlineSize?.trim() || HEADLINE_CLAMP_SIZE;
+  const headlineSizeClasses = cn(
+    heroHeadlineSize?.trim() || HEADLINE_CLAMP_SIZE,
+    HEADLINE_MOBILE_CLAMP,
+  );
   const bodySizeClass = bodyTextSize?.trim() || 'text-sm sm:text-base';
 
   return (
@@ -77,13 +86,13 @@ export function Hero({
         <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center sm:gap-2">
           <SplitText
             text={line1}
-            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeOnly} leading-[0.95] sm:leading-[0.92]`}
+            className={`font-display justify-center uppercase tracking-tight text-white ${headlineSizeClasses} leading-[0.95] sm:leading-[0.92]`}
             from="bottom"
             splitBy="words"
             delay={0.1}
           />
 
-          <div className={`font-display w-full uppercase tracking-tight ${headlineSizeOnly}`}>
+          <div className={cn('font-display w-full uppercase tracking-tight', headlineSizeClasses)}>
             <SplitText
               text={line2}
               className="justify-center text-white leading-[0.95] sm:leading-[0.92]"

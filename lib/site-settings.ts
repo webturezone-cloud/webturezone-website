@@ -14,7 +14,7 @@ export const SITE_SETTINGS_DEFAULTS: SiteSettings = {
   whyus_heading: 'We Think. We Build. You Scale.',
   process_heading: 'Simple Process. Serious Results.',
   cta_heading: 'Ready To Stop Wasting Budget?',
-  hero_headline_size: 'text-7xl',
+  hero_headline_size: 'sm:text-7xl',
   section_heading_size: 'text-5xl',
   body_text_size: 'text-base',
   font_display: 'Bebas Neue',
