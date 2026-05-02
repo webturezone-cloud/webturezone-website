@@ -77,7 +77,7 @@ export function Hero() {
         <div className="mx-auto mt-4 flex w-full max-w-md min-w-0 flex-nowrap items-center justify-center gap-3 sm:mt-5 sm:gap-4">
           <Magnet strength={0.3} className="block min-w-0 flex-1">
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex w-full min-w-0 max-w-full items-center justify-center gap-1 whitespace-nowrap bg-blue px-4 py-2 text-center text-sm font-bold uppercase tracking-[0.06em] text-white transition-all hover:bg-blue-dim sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
             >
               Start Growing →

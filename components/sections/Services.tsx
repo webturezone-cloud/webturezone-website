@@ -48,7 +48,7 @@ export function Services() {
                     <p className="max-w-xs text-sm font-light leading-relaxed text-gray-400">{service.desc}</p>
                   </div>
                   <a
-                    href="#contact"
+                    href="/contact"
                     className="mt-6 inline-flex w-fit items-center gap-2 rounded-lg border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-widest text-blue-400 transition-colors hover:bg-blue-500/20"
                   >
                     Learn More →

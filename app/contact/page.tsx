@@ -1,99 +1,85 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { ContactForm } from '@/components/contact/ContactForm';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
-import { ContactForm } from '@/components/contact/ContactForm';
-import { CONTACT_PAGE } from '@/lib/constants';
+import { Aurora } from '@/components/ui/Aurora';
+import { Particles } from '@/components/ui/Particles';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: CONTACT_PAGE.heroSub,
+  title: 'Contact Us — WebTureZone | Book a Free Strategy Call',
+  description:
+    "Book a free 30-minute strategy call with WebTureZone. We'll audit your current setup and build a custom growth plan for your business.",
+  keywords: [
+    'contact WebTureZone',
+    'book strategy call',
+    'Google Ads agency Pakistan',
+    'Meta Ads agency contact',
+    'digital marketing consultation',
+  ],
+  openGraph: {
+    title: 'Contact WebTureZone — Book a Free Strategy Call',
+    description:
+      'Get a free 30-minute strategy call. Google Ads, Meta Ads, Web Development & Automation experts.',
+    url: 'https://webturezone.netlify.app/contact',
+  },
 };
 
 export default function ContactPage() {
   return (
-    <>
+    <main className="relative min-h-screen overflow-hidden bg-[#020202]">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <Aurora
+          colorStops={['#020202', '#0a1628', '#4E66D4']}
+          blend={0.3}
+          speed={0.2}
+          amplitude={0.8}
+        />
+      </div>
+      <div className="absolute inset-0 z-0">
+        <Particles count={40} color="#4E66D4" speed={0.2} connectDistance={80} />
+      </div>
+
       <Navbar />
-      <main className="min-h-0 overflow-x-hidden bg-navy pt-[60px] lg:pt-16">
-        <section
-          className="relative border-b border-white/[0.07] bg-navy-secondary px-5 py-16 sm:px-6 lg:px-12 lg:py-20"
-          aria-label="Contact hero"
-        >
-          <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-80" aria-hidden />
-          <div className="relative z-10 mx-auto max-w-3xl text-center">
-            <h1 className="font-display text-3xl uppercase leading-[1.05] tracking-tight text-white text-balance sm:text-4xl lg:text-5xl">
-              {CONTACT_PAGE.heroTitle}
-            </h1>
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-slate-300 text-balance sm:text-base">
-              {CONTACT_PAGE.heroSub}
-            </p>
-          </div>
-        </section>
 
-        <section className="px-5 py-14 sm:px-6 lg:px-12 lg:py-20" aria-label="Contact details and form">
-          <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="text-center lg:text-left">
-              <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/50">
-                {CONTACT_PAGE.detailsTitle}
-              </h2>
-              <ul className="mx-auto mt-6 max-w-md space-y-5 text-left lg:mx-0">
-                <li>
-                  <Link
-                    href={`mailto:${CONTACT_PAGE.email}`}
-                    className="group flex items-start gap-3 text-white/85 transition hover:text-white"
-                  >
-                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-blue">
-                      <Mail className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                    </span>
-                    <span>
-                      <span className="block text-[0.65rem] font-medium uppercase tracking-wider text-white/45">
-                        Email
-                      </span>
-                      <span className="text-sm sm:text-[0.9rem]">{CONTACT_PAGE.email}</span>
-                    </span>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href={CONTACT_PAGE.phoneHref}
-                    className="group flex items-start gap-3 text-white/85 transition hover:text-white"
-                  >
-                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-blue">
-                      <Phone className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                    </span>
-                    <span>
-                      <span className="block text-[0.65rem] font-medium uppercase tracking-wider text-white/45">
-                        Phone
-                      </span>
-                      <span className="text-sm sm:text-[0.9rem]">{CONTACT_PAGE.phone}</span>
-                    </span>
-                  </Link>
-                </li>
-                <li className="flex items-start gap-3 text-white/85">
-                  <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-blue">
-                    <MapPin className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-                  </span>
-                  <span>
-                    <span className="block text-[0.65rem] font-medium uppercase tracking-wider text-white/45">
-                      Location
-                    </span>
-                    <span className="text-sm sm:text-[0.9rem]">{CONTACT_PAGE.location}</span>
-                  </span>
-                </li>
-              </ul>
-              <p className="mx-auto mt-8 max-w-md text-sm leading-relaxed text-slate-400 lg:mx-0">
-                {CONTACT_PAGE.responseNote}
-              </p>
-            </div>
+      {/* Page Header */}
+      <section className="relative z-10 px-5 pb-12 pt-36 text-center">
+        <div className="mx-auto max-w-7xl">
+          {/* Badge */}
+          <span className="mb-6 inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-blue-400">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500" />
+            Free Strategy Call
+          </span>
 
-            <div className="mx-auto w-full min-w-0 max-w-lg lg:mx-0 lg:max-w-none">
-              <ContactForm />
-            </div>
+          <h1 className="font-display mb-4 text-[clamp(2.5rem,6vw,5rem)] uppercase leading-none tracking-tight text-white">
+            Let&apos;s Build Your
+            <span className="text-blue-500"> Growth Plan</span>
+          </h1>
+
+          <p className="mx-auto max-w-xl text-base font-light leading-relaxed text-gray-400">
+            Fill out the form below and we&apos;ll get back to you within 24 hours with a custom strategy for your
+            business.
+          </p>
+
+          {/* 3 trust points */}
+          <div className="mt-8 flex flex-wrap justify-center gap-6 text-xs font-light text-gray-500">
+            {['✓ Free 30-min strategy call', '✓ No obligation', '✓ Response within 24 hours'].map((item) => (
+              <span key={item} className="text-gray-400">
+                {item}
+              </span>
+            ))}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* Contact Form */}
+      <section className="relative z-10 px-5 pb-24">
+        <div className="mx-auto max-w-2xl">
+          <ContactForm />
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </main>
   );
 }

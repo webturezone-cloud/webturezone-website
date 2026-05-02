@@ -217,7 +217,7 @@ export const FOOTER = {
       title: 'Contact',
       links: [
         { label: 'hello@webturezone.com', href: 'mailto:hello@webturezone.com' },
-        { label: 'Book a Call', href: '#contact' },
+        { label: 'Book a Call', href: '/contact' },
         { label: 'LinkedIn', href: 'https://linkedin.com' },
         { label: 'Instagram', href: 'https://instagram.com' },
       ],
@@ -229,7 +229,7 @@ export const MARQUEE_ARIA_LABEL = 'Core marketing and development capabilities';
 
 export const NAV_CTA = 'Get Started';
 
-export const NAV_CTA_HREF = '#contact';
+export const NAV_CTA_HREF = '/contact';
 
 export const CONTACT_PAGE = {
   heroTitle: "Let's Build Your Growth System",
