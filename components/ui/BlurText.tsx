@@ -17,7 +17,9 @@ export type BlurTextProps = {
   duration?: number;
   /** Stagger between words in seconds */
   stepDelay?: number;
-  once?: boolean
+  once?: boolean;
+  /** Keep words on one row below `lg` when enabled. Avoid for long CMS strings. */
+  mobileSingleLine?: boolean;
 };
 
 export function BlurText({
@@ -28,6 +30,7 @@ export function BlurText({
   duration = 0.55,
   stepDelay = 0.08,
   once = true,
+  mobileSingleLine = false,
 }: BlurTextProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once, margin: '-10% 0px' });
@@ -69,7 +72,11 @@ export function BlurText({
   return (
     <motion.span
       ref={ref}
-      className={cn('inline-flex flex-wrap', className)}
+      className={cn(
+        'inline-flex flex-wrap',
+        mobileSingleLine && 'max-lg:w-full max-lg:min-w-0 max-lg:flex-nowrap max-lg:justify-center',
+        className,
+      )}
       style={style}
       initial="hidden"
       animate={controls}

@@ -22,7 +22,9 @@ export type SplitTextProps = {
   duration?: number;
   splitBy?: SplitTextBy;
   from?: SplitTextFrom;
-  once?: boolean
+  once?: boolean;
+  /** Keep one row below `lg` when enabled; pair with smaller mobile font/clamp for long static lines. */
+  mobileSingleLine?: boolean;
 };
 
 function hiddenState(from: SplitTextFrom) {
@@ -48,6 +50,7 @@ export function SplitText({
   splitBy = 'words',
   from = 'bottom',
   once = true,
+  mobileSingleLine = false,
 }: SplitTextProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once, margin: '-10% 0px' });
@@ -93,7 +96,8 @@ export function SplitText({
     <motion.span
       ref={ref}
       className={cn(
-        'inline-flex flex-wrap gap-x-[0.2em] max-sm:gap-x-[0.12em]',
+        'inline-flex flex-wrap gap-x-[0.2em] max-lg:gap-x-[0.12em]',
+        mobileSingleLine && 'max-lg:w-full max-lg:min-w-0 max-lg:flex-nowrap max-lg:justify-center',
         className,
       )}
       style={style}

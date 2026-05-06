@@ -23,7 +23,7 @@ type ProcessProps = {
 };
 
 const FALLBACK_TITLE_SIZE = 'text-[clamp(1.8rem,5vw,5rem)]';
-const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
+const FALLBACK_MOBILE_SECTION = 'clamp(18px, 6vw, 32px)';
 
 export function Process({ heading, settings }: ProcessProps = {}) {
   const fallbackTitle = `${SECTION_HEADINGS.process.before} ${SECTION_HEADINGS.process.accent}`;
@@ -38,25 +38,29 @@ export function Process({ heading, settings }: ProcessProps = {}) {
     ? `max-sm:${settings.mobile_body_text_size.trim()}`
     : 'max-sm:text-sm';
 
+  const usesDefaultProcessTitle = !heading?.trim();
+
   const headingStyle = { '--mobile-h2': mobileHeading } as CSSProperties;
 
   return (
-    <section id="process" className="py-16 sm:py-24 lg:py-32" aria-label="Process">
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-12">
+    <section id="process" className="min-w-0 overflow-x-hidden py-12 sm:py-24 lg:py-32" aria-label="Process">
+      <div className="mx-auto w-full min-w-0 max-w-7xl px-4 sm:px-6 lg:px-12">
         <SectionLabel>{SECTION_LABELS.process}</SectionLabel>
-        <div className="mx-auto mt-4 flex max-w-4xl justify-center text-center">
+        <div className="mx-auto mt-4 flex min-w-0 max-w-[min(100vw-2rem,56rem)] justify-center px-1 text-center sm:max-w-4xl">
           <BlurText
             text={processTitle}
             style={headingStyle}
             className={cn(
-              'mobile-heading font-display justify-center font-bold uppercase leading-[1.05] tracking-tight text-white text-balance',
+              'mobile-heading font-display justify-center font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-balance',
+              usesDefaultProcessTitle ? 'mobile-single-line-heading' : 'max-lg:!text-[var(--mobile-h2)]',
               desktopHeading,
             )}
             delay={0.1}
+            mobileSingleLine={usesDefaultProcessTitle}
           />
         </div>
 
-        <div className="mt-12 grid grid-cols-1 divide-y divide-white/[0.07] overflow-hidden rounded-xl border border-white/[0.07] sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:mt-14 lg:grid-cols-4">
+        <div className="mx-auto mt-10 grid max-w-full grid-cols-1 divide-y divide-white/[0.07] overflow-hidden rounded-xl border border-white/[0.07] sm:mt-12 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:mt-14 lg:grid-cols-4 lg:divide-y-0">
           {PROCESS_STEPS.map((step) => (
             <motion.div
               key={step.num}
@@ -67,7 +71,7 @@ export function Process({ heading, settings }: ProcessProps = {}) {
               className="relative bg-canvas-card p-6 sm:p-8 lg:p-10"
             >
               <span className="absolute right-5 top-5 font-sans text-xs text-accent">→</span>
-              <p className="mb-6 font-display text-6xl font-bold leading-none text-blue-500/20 sm:text-8xl">{step.num}</p>
+              <p className="mb-4 font-display text-5xl font-bold leading-none text-blue-500/20 sm:text-8xl">{step.num}</p>
               <h4 className="mb-3 font-display text-xl font-semibold uppercase tracking-tight text-white sm:text-2xl">
                 {step.title}
               </h4>

@@ -8,6 +8,7 @@ import 'react-phone-number-input/style.css';
 import { CTA_SERVICE_OPTIONS } from '@/lib/constants';
 import { pixel } from '@/lib/pixel';
 import { submitContactSubmission } from '@/lib/contactSubmission';
+import { cn } from '@/lib/utils';
 
 const inputClass =
   'h-11 sm:h-12 w-full rounded-lg border border-white/[0.12] bg-white/[0.04] px-4 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-blue/50 focus:ring-2 focus:ring-blue/25';
@@ -79,8 +80,8 @@ export function ContactLeadForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className={className}>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <form onSubmit={handleSubmit} className={cn('min-w-0 max-w-full', className)}>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-4">
         <div className="md:col-span-2">
           <label htmlFor={`${idPrefix}-fullName`} className={labelClass}>
             Full name
@@ -198,7 +199,7 @@ export function ContactLeadForm({
         onClick={() => {
           if (idPrefix === 'cta') pixel.schedule();
         }}
-        className="mt-5 inline-flex min-h-[48px] w-full items-center justify-center rounded-lg bg-blue px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:bg-blue-dim focus:outline-none focus:ring-2 focus:ring-blue/40 focus:ring-offset-2 focus:ring-offset-navy-secondary disabled:pointer-events-none disabled:opacity-60 sm:w-auto sm:min-h-0"
+        className="mt-6 inline-flex min-h-[48px] w-full max-w-full items-center justify-center rounded-lg bg-blue px-6 py-4 text-xs font-bold uppercase tracking-[0.12em] text-white transition hover:bg-blue-dim focus:outline-none focus:ring-2 focus:ring-blue/40 focus:ring-offset-2 focus:ring-offset-navy-secondary disabled:pointer-events-none disabled:opacity-60 lg:mt-5 lg:w-auto lg:min-h-0"
       >
         {loading ? 'Sending…' : submitLabel}
       </button>

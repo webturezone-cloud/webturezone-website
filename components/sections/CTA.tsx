@@ -30,7 +30,7 @@ type CTAProps = {
 };
 
 const FALLBACK_HEADLINE = 'text-3xl lg:text-4xl xl:text-5xl';
-const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
+const FALLBACK_MOBILE_SECTION = 'clamp(18px, 6vw, 32px)';
 
 export function CTA({ heading, settings }: CTAProps = {}) {
   const fallback = `${CTA_SECTION.headlineLine1} ${CTA_SECTION.headlineLine2}`;
@@ -46,18 +46,19 @@ export function CTA({ heading, settings }: CTAProps = {}) {
     : 'max-sm:text-sm';
 
   const headlineStyle = { '--mobile-h2': mobileHeadline } as CSSProperties;
+  const usesDefaultCtaHeadline = headline === fallback;
 
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-navy-secondary py-14 lg:py-20 xl:py-24"
+      className="relative min-w-0 overflow-x-hidden bg-navy-secondary py-12 sm:py-16 lg:py-20 xl:py-24"
       aria-label="Contact"
     >
       <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-90" aria-hidden />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="mx-auto w-full max-w-lg text-left lg:mx-0 lg:max-w-none">
+      <div className="relative z-10 mx-auto w-full min-w-0 max-w-6xl px-4 sm:px-6">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          <div className="mx-auto w-full max-w-lg text-center lg:mx-0 lg:max-w-none lg:text-left">
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -68,25 +69,26 @@ export function CTA({ heading, settings }: CTAProps = {}) {
                 text={headline}
                 style={headlineStyle}
                 className={cn(
-                  'justify-center font-display uppercase leading-[1.05] tracking-tight text-white text-balance lg:justify-start',
-                  'max-sm:!text-[var(--mobile-h2)]',
+                  'justify-center font-display uppercase leading-[1.05] tracking-tight text-white sm:text-balance lg:justify-start',
+                  usesDefaultCtaHeadline ? 'mobile-single-line-heading' : 'max-lg:!text-[var(--mobile-h2)]',
                   desktopHeadline,
                 )}
                 from="bottom"
                 splitBy="words"
                 delay={0}
+                mobileSingleLine={usesDefaultCtaHeadline}
               />
             </motion.div>
             <p
               className={cn(
-                'mt-4 max-w-md text-left leading-relaxed text-slate-300 text-balance lg:mt-5',
+                'mx-auto mt-4 max-w-md text-balance leading-relaxed text-slate-300 lg:mx-0 lg:mt-5 lg:text-left',
                 ctaBodyMobile,
                 bodyDesktop.includes(' ') ? bodyDesktop : `sm:${bodyDesktop}`,
               )}
             >
               {CTA_SECTION.subtext}
             </p>
-            <ul className="mt-6 flex max-w-md flex-col items-start gap-3 text-left sm:mt-7">
+            <ul className="mx-auto mt-6 flex w-full max-w-md flex-col items-start gap-4 sm:mt-7 lg:mx-0 lg:gap-3">
               {TRUST_POINTS.map((point) => (
                 <li
                   key={point}
@@ -115,7 +117,7 @@ export function CTA({ heading, settings }: CTAProps = {}) {
             <ContactLeadForm
               idPrefix="cta"
               submitLabel="Book My Strategy Call"
-              className="mx-auto w-full max-w-lg rounded-2xl border border-white/[0.1] bg-black/50 p-5 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8"
+              className="mx-auto w-full max-w-lg rounded-2xl border border-white/[0.1] bg-black/50 p-5 shadow-[0_0_48px_-16px_rgba(78,102,212,0.35)] backdrop-blur-sm sm:p-8 lg:mx-0"
             />
           </motion.div>
         </div>

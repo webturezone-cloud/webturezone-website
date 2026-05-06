@@ -14,7 +14,7 @@ type Props = {
 
 export function ServiceDetailPage({ copy, trackingSlot }: Props) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#020202]">
+    <main className="relative min-h-screen min-w-0 overflow-x-hidden bg-[#020202]">
       {trackingSlot}
       <div className="absolute inset-0 z-0">
         <Aurora
@@ -30,17 +30,17 @@ export function ServiceDetailPage({ copy, trackingSlot }: Props) {
 
       <Navbar />
 
-      <section className="relative z-10 px-5 pb-16 pt-36">
-        <div className="mx-auto max-w-7xl">
+      <section className="relative z-10 px-4 pb-14 pt-28 sm:px-5 sm:pb-16 sm:pt-32 md:pt-36">
+        <div className="mx-auto min-w-0 max-w-7xl">
           <span className="mb-6 inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-blue-400">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-500" />
             {copy.badge}
           </span>
-          <h1 className="mb-6 max-w-4xl font-display text-[clamp(2.5rem,6vw,6rem)] uppercase leading-none tracking-tight text-white">
+          <h1 className="mb-6 max-w-full font-display text-[clamp(1.85rem,7vw,6rem)] uppercase leading-[0.98] tracking-tight text-white sm:leading-none">
             {copy.headlineBefore}
             <span className="text-blue-500">{copy.headlineAccent}</span>
           </h1>
-          <p className="mb-10 max-w-2xl text-lg font-light leading-relaxed text-gray-400">{copy.description}</p>
+          <p className="mb-10 max-w-2xl text-base font-light leading-relaxed text-gray-400 sm:text-lg">{copy.description}</p>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link
               href="/contact"
@@ -58,10 +58,10 @@ export function ServiceDetailPage({ copy, trackingSlot }: Props) {
         </div>
       </section>
 
-      <section className="relative z-10 border-t border-white/[0.07] px-5 py-20">
+      <section className="relative z-10 border-t border-white/[0.07] px-4 py-14 sm:px-5 sm:py-20">
         <div className="mx-auto max-w-7xl">
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-blue-400">{copy.gridEyebrow}</p>
-          <h2 className="mb-12 font-display text-[clamp(2rem,4vw,3.5rem)] uppercase leading-none text-white">
+          <h2 className="mb-8 font-display text-[clamp(1.45rem,5vw,3.5rem)] uppercase leading-tight tracking-tight text-white sm:mb-12 sm:leading-none">
             {copy.gridH2Before}
             <span className="text-blue-500">{copy.gridH2Accent}</span>
           </h2>
@@ -79,26 +79,30 @@ export function ServiceDetailPage({ copy, trackingSlot }: Props) {
         </div>
       </section>
 
-      <section className="relative z-10 border-t border-white/[0.07] px-5 py-20">
+      <section className="relative z-10 border-t border-white/[0.07] px-4 py-14 sm:px-5 sm:py-20">
         <div className="mx-auto max-w-7xl">
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-blue-400">Results We Deliver</p>
-          <h2 className="mb-12 font-display text-[clamp(2rem,4vw,3.5rem)] uppercase leading-none text-white">
+          <h2 className="mb-8 font-display text-[clamp(1.45rem,5vw,3.5rem)] uppercase leading-tight tracking-tight text-white sm:mb-12 sm:leading-none">
             Numbers That <span className="text-blue-500">Prove It.</span>
           </h2>
           <div className="grid grid-cols-2 gap-px border border-white/[0.07] bg-white/[0.07] lg:grid-cols-4">
             {copy.stats.map((stat) => (
-              <div key={stat.label} className="bg-[#020202] px-4 py-10 text-center">
-                <p className="font-display text-5xl text-blue-500">{stat.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-widest text-gray-400">{stat.label}</p>
+              <div key={stat.label} className="min-w-0 bg-[#020202] px-2 py-6 text-center sm:px-4 sm:py-10">
+                <p className="font-display text-[clamp(1.85rem,6.5vw,3.25rem)] leading-none text-blue-500 sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-2 px-1 text-[0.65rem] uppercase leading-snug tracking-wider text-gray-400 sm:text-xs sm:tracking-widest">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 border-t border-white/[0.07] px-5 py-20">
+      <section className="relative z-10 border-t border-white/[0.07] px-4 py-14 sm:px-5 sm:py-20">
         <div className="mx-auto max-w-7xl text-center">
-          <h2 className="mb-4 font-display text-[clamp(2rem,5vw,4rem)] uppercase leading-none text-white">
+          <h2 className="mb-4 font-display text-[clamp(1.5rem,5.5vw,4rem)] uppercase leading-tight tracking-tight text-white sm:leading-none">
             {copy.ctaHeadlineBefore}
             <span className="text-blue-500">{copy.ctaHeadlineAccent}</span>
           </h2>

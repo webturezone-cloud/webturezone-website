@@ -54,7 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <SiteThemeOverride settings={settings} />
       </head>
-      <body className="bg-navy font-sans text-[0.9rem] font-normal leading-relaxed text-white antialiased">
+      <body className="min-w-0 overflow-x-hidden bg-navy font-sans text-[0.9rem] font-normal leading-relaxed text-white antialiased">
         <FacebookPixel />
         {children}
       </body>

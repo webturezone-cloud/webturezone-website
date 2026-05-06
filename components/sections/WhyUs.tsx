@@ -25,7 +25,7 @@ type WhyUsProps = {
 };
 
 const FALLBACK_SECTION_HEADING = 'text-[clamp(2.2rem,6vw,4rem)]';
-const FALLBACK_MOBILE_SECTION = 'clamp(1.8rem,5vw,3rem)';
+const FALLBACK_MOBILE_SECTION = 'clamp(18px, 6vw, 32px)';
 
 export function WhyUs({ heading, settings }: WhyUsProps = {}) {
   const trimmedHeading = heading?.trim();
@@ -47,29 +47,35 @@ export function WhyUs({ heading, settings }: WhyUsProps = {}) {
   return (
     <section
       id="why-us"
-      className="border-y border-white/[0.07] bg-surface py-16 lg:py-32"
+      className="min-w-0 overflow-x-hidden border-y border-white/[0.07] bg-surface py-12 sm:py-16 lg:py-32"
       aria-label="Why WebTureZone"
     >
-      <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto w-full min-w-0 max-w-6xl px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="text-center lg:text-left">
             <SectionLabel className="text-center lg:text-left">{SECTION_LABELS.why}</SectionLabel>
             <h2
               style={h2Style}
               className={cn(
-                'mobile-heading mt-4 font-display uppercase leading-[1.05] tracking-tight text-balance text-white',
+                'mobile-heading mt-4 font-display uppercase leading-[1.02] tracking-tight text-white max-sm:leading-none max-sm:tracking-tight sm:text-balance',
                 desktopHeading,
               )}
             >
               {trimmedHeading ? (
-                <span>{trimmedHeading}</span>
+                <span className="inline-block max-w-full">{trimmedHeading}</span>
               ) : (
                 <>
-                  {SECTION_HEADINGS.why.line1}
-                  <br />
-                  {SECTION_HEADINGS.why.line2}
-                  <br />
-                  <span className="text-blue">{SECTION_HEADINGS.why.accent}</span>
+                  <span className="mobile-single-line-heading inline-flex justify-center text-center lg:hidden">
+                    {SECTION_HEADINGS.why.line1} {SECTION_HEADINGS.why.line2}{' '}
+                    <span className="text-blue">{SECTION_HEADINGS.why.accent}</span>
+                  </span>
+                  <span className="hidden text-balance lg:inline">
+                    {SECTION_HEADINGS.why.line1}
+                    <br />
+                    {SECTION_HEADINGS.why.line2}
+                    <br />
+                    <span className="text-blue">{SECTION_HEADINGS.why.accent}</span>
+                  </span>
                 </>
               )}
             </h2>

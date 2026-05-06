@@ -32,9 +32,9 @@ const DEFAULT_LINE_2 = 'We Engineer Results.';
 const DEFAULT_SUBTEXT =
   'From Google & Meta ads to full website development and automation systems — we build digital infrastructure that scales your revenue.';
 
-const DEFAULT_MOBILE_HEADLINE = 'clamp(0.85rem,4.5vw,6rem)';
+/** Tuned for narrow phones through `lg` clamp override (see `headlineClass`). */
+const DEFAULT_MOBILE_HEADLINE = 'clamp(13px, 3.5vw + 0.45rem, 30px)';
 const DEFAULT_DESKTOP_HEADLINE = 'sm:text-7xl';
-
 export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroProps = {}) {
   const line1 = headlineLine1?.trim() || DEFAULT_LINE_1;
   const line2 = headlineLine2?.trim() || DEFAULT_LINE_2;
@@ -44,9 +44,13 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
   const desktopHeadlineSize = settings?.hero_headline_size?.trim() || DEFAULT_DESKTOP_HEADLINE;
 
   const headlineStyle = { '--mobile-hl': mobileHeadlineSize } as CSSProperties;
+  /** Only default hero lines use flex-nowrap on small screens; CMS copy may wrap to avoid overflow */
+  const heroHeadlineSingleLine =
+    line1 === DEFAULT_LINE_1 && line2 === DEFAULT_LINE_2;
+
   const headlineClass = cn(
-    'w-full justify-center font-display uppercase leading-[0.95] tracking-tight text-white sm:leading-[0.92]',
-    'max-sm:!text-[var(--mobile-hl)]',
+    'w-full min-w-0 justify-center font-display uppercase leading-[0.92] tracking-tight text-white sm:leading-[0.92]',
+    'max-lg:!text-[var(--mobile-hl)]',
     desktopHeadlineSize,
   );
 
@@ -56,7 +60,7 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
     : 'max-sm:text-sm';
 
   return (
-    <section className="relative flex flex-col items-center overflow-hidden" aria-label="Hero">
+    <section className="relative flex min-w-0 flex-col items-center overflow-x-hidden" aria-label="Hero">
       <div className="absolute inset-0 z-0">
         <Aurora
           colorStops={['#020202', '#0a1628', '#4E66D4']}
@@ -76,7 +80,7 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
         />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full min-w-0 max-w-7xl flex-col items-center overflow-x-hidden px-5 pt-[120px] pb-[100px] text-center sm:px-6 lg:px-12 lg:pt-[150px] lg:pb-[150px]">
+      <div className="relative z-10 mx-auto flex w-full min-w-0 max-w-7xl flex-col items-center overflow-x-hidden px-4 pb-[72px] pt-[104px] text-center sm:px-6 sm:pb-[88px] sm:pt-[120px] lg:px-12 lg:pb-[150px] lg:pt-[150px]">
         <motion.div variants={fadeUp} initial="hidden" animate="visible">
           <span className="mb-4 inline-flex items-center gap-2 border border-blue/30 bg-blue/10 px-4 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-blue sm:mb-5">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue" />
@@ -84,7 +88,7 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
           </span>
         </motion.div>
 
-        <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-1 text-center sm:gap-2">
+        <div className="mx-auto flex w-full min-w-0 max-w-4xl flex-col items-center gap-0.5 text-center sm:gap-2">
           <SplitText
             text={line1}
             style={headlineStyle}
@@ -92,9 +96,10 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
             from="bottom"
             splitBy="words"
             delay={0.1}
+            mobileSingleLine={heroHeadlineSingleLine}
           />
 
-          <div className="font-display w-full uppercase tracking-tight">
+          <div className="font-display w-full min-w-0 uppercase tracking-tight">
             <SplitText
               text={line2}
               style={headlineStyle}
@@ -102,6 +107,7 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
               from="bottom"
               splitBy="words"
               delay={0.25}
+              mobileSingleLine={heroHeadlineSingleLine}
             />
           </div>
         </div>
@@ -127,28 +133,28 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
           />
         </motion.div>
 
-        <div className="mx-auto mt-4 flex w-full max-w-md min-w-0 flex-nowrap items-center justify-center gap-3 sm:mt-5 sm:gap-4">
-          <Magnet strength={0.3} className="block min-w-0 flex-1">
+        <div className="mx-auto mt-4 flex w-full max-w-md min-w-0 flex-col items-stretch justify-center gap-3 sm:mt-5 md:flex-row md:flex-nowrap md:items-center md:gap-4 md:max-w-xl">
+          <Magnet strength={0.3} className="block w-full min-w-0 md:flex-1 md:max-w-none">
             <a
               href="/contact"
-              className="inline-flex w-full min-w-0 max-w-full items-center justify-center gap-1 whitespace-nowrap bg-blue px-4 py-2 text-center text-sm font-bold uppercase tracking-[0.06em] text-white transition-all hover:bg-blue-dim sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
+              className="inline-flex w-full min-w-0 max-w-full items-center justify-center gap-1 whitespace-nowrap rounded-md bg-blue px-4 py-3 text-center text-[0.8rem] font-bold uppercase tracking-[0.06em] text-white transition-all hover:bg-blue-dim sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
               onClick={() => pixel.schedule()}
             >
               Start Growing →
             </a>
           </Magnet>
 
-          <Magnet strength={0.3} className="block min-w-0 flex-1">
+          <Magnet strength={0.3} className="block w-full min-w-0 md:flex-1 md:max-w-none">
             <a
               href="#services"
-              className="inline-flex w-full min-w-0 max-w-full items-center justify-center whitespace-nowrap border border-white/20 px-4 py-2 text-center text-sm font-medium uppercase tracking-[0.06em] text-white transition-all hover:border-white/50 sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
+              className="inline-flex w-full min-w-0 max-w-full items-center justify-center whitespace-nowrap rounded-md border border-white/20 px-4 py-3 text-center text-[0.8rem] font-medium uppercase tracking-[0.06em] text-white transition-all hover:border-white/50 sm:px-6 sm:py-3 sm:text-base sm:tracking-[0.1em] md:tracking-[0.12em]"
             >
               See Our Services
             </a>
           </Magnet>
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-2 justify-center gap-8 border-t border-white/[0.07] pt-6 sm:mt-9 sm:flex sm:flex-row sm:gap-10 sm:pt-7">
+        <div className="mt-8 grid w-full max-w-lg grid-cols-2 gap-x-4 gap-y-6 border-t border-white/[0.07] pt-6 sm:mt-9 sm:flex sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-12 sm:gap-y-7 sm:pt-7 lg:gap-x-14">
           {[
             { value: '4×', label: 'Avg. ROAS Delivered' },
             { value: '200+', label: 'Campaigns Launched' },
@@ -161,10 +167,14 @@ export function Hero({ headlineLine1, headlineLine2, subtext, settings }: HeroPr
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="text-center"
+              className="min-w-0 text-center"
             >
-              <div className="font-display text-4xl leading-none text-white sm:text-5xl">{stat.value}</div>
-              <div className="mt-1 text-[0.7rem] uppercase tracking-[0.1em] text-gray-500">{stat.label}</div>
+              <div className="font-display text-[clamp(1.65rem,5.5vw,2.85rem)] leading-none text-white sm:text-5xl">
+                {stat.value}
+              </div>
+              <div className="mt-1 text-[0.65rem] uppercase leading-snug tracking-[0.1em] text-gray-500 sm:text-[0.7rem]">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </div>

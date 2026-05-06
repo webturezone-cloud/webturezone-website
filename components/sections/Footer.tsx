@@ -4,10 +4,10 @@ import { FOOTER, SITE } from '@/lib/constants';
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.08] bg-navy py-16 sm:py-24 lg:py-32">
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-12">
-        <div className="mx-auto grid max-w-content grid-cols-2 gap-8 border-b border-white/[0.08] pb-14 sm:gap-12 md:grid-cols-4">
-          <div className="col-span-2 md:col-span-1">
+    <footer className="min-w-0 overflow-x-hidden border-t border-white/[0.08] bg-navy py-14 sm:py-20 lg:py-32">
+      <div className="mx-auto w-full min-w-0 max-w-7xl px-4 sm:px-6 lg:px-12">
+        <div className="mx-auto grid max-w-content grid-cols-1 gap-10 border-b border-white/[0.08] pb-12 sm:grid-cols-2 sm:gap-12 sm:pb-14 md:grid-cols-4 md:gap-10">
+          <div className="sm:col-span-2 md:col-span-1">
             <Link href="/" className="inline-flex items-center gap-3">
               <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-white">
                 <LayoutGrid className="h-4 w-4" strokeWidth={1.75} aria-hidden />
@@ -30,7 +30,7 @@ export function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="mb-2 block text-sm font-normal text-white/50 transition-colors last:mb-0 hover:text-white"
+                className="block min-h-10 max-w-full break-words rounded-md py-1.5 text-sm font-normal leading-snug text-white/50 transition-colors first:pt-0 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -45,7 +45,7 @@ export function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="mb-2 block text-sm font-normal text-white/50 transition-colors last:mb-0 hover:text-white"
+                className="block min-h-10 max-w-full break-words rounded-md py-1.5 text-sm font-normal leading-snug text-white/50 transition-colors first:pt-0 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -60,7 +60,7 @@ export function Footer() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="mb-2 block text-sm font-normal text-white/50 transition-colors last:mb-0 hover:text-white"
+                className="block min-h-10 max-w-full break-words rounded-md py-1.5 text-sm font-normal leading-snug text-white/50 transition-colors first:pt-0 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -69,9 +69,10 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-2 border-t border-white/[0.07] pt-6 text-center text-xs text-gray-500 sm:flex-row sm:items-start sm:justify-between sm:text-left">
-          <p>© 2025 WebTureZone. All rights reserved.</p>
+          <p>{FOOTER.copyright}</p>
           <p>
-            Built to <span className="text-blue">perform</span>.
+            {FOOTER.built}{' '}
+            <span className="text-blue">{FOOTER.builtAccent}</span>.
           </p>
         </div>
       </div>

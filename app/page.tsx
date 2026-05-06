@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="min-w-0 overflow-x-hidden">
         <Hero
           headlineLine1={settings.hero_headline_1}
           headlineLine2={settings.hero_headline_2}

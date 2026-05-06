@@ -8,9 +8,25 @@
   }
 }
 
+/**
+ * Short static display headlines on viewports up to `lg` (tablet / small laptop).
+ * Do not use on CMS/dynamic copy — prefer wrapping + text-balance there.
+ */
+@layer components {
+  @media (max-width: 1023px) {
+    .mobile-single-line-heading {
+      white-space: nowrap !important;
+      font-size: clamp(18px, 6vw, 32px) !important;
+      line-height: 1.05 !important;
+      letter-spacing: -0.03em !important;
+    }
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -40,6 +56,9 @@
 .phone-input-wrapper {
   display: flex;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   background: #0a0f1e;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;

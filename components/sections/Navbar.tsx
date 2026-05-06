@@ -57,18 +57,20 @@ export function Navbar() {
   function renderMobileNavLink(link: string) {
     if (link === 'Services') {
       return (
-        <div key={link} className="flex flex-col gap-3">
-          <span className="text-[0.75rem] font-medium uppercase tracking-[0.15em] text-white/45">Services</span>
-          {NAV_SERVICE_LINKS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:text-white pl-2 border-l border-white/[0.1]"
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div key={link} className="flex flex-col gap-2 border-t border-white/[0.06] pt-3 first:border-t-0 first:pt-0">
+          <span className="px-1 text-[0.75rem] font-medium uppercase tracking-[0.15em] text-white/45">Services</span>
+          <div className="flex flex-col gap-1">
+            {NAV_SERVICE_LINKS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="min-h-11 rounded-lg py-2.5 pl-3 text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:bg-white/[0.06] hover:text-white"
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       );
     }
@@ -76,7 +78,7 @@ export function Navbar() {
       <Link
         key={link}
         href={`/#${link.toLowerCase()}`}
-        className="text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:text-white"
+        className="block min-h-11 rounded-lg px-1 py-2.5 text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:bg-white/[0.06] hover:text-white"
         onClick={() => setOpen(false)}
       >
         {link}
@@ -85,19 +87,22 @@ export function Navbar() {
   }
 
   return (
-    <header className="fixed top-0 z-50 h-[60px] w-full border-b border-white/[0.06] bg-[rgba(2,8,24,0.80)] backdrop-blur-[12px] lg:h-nav">
-      <nav className="mx-auto flex h-full max-w-content items-center px-5 sm:px-6 lg:px-12">
-        <Link href="/" className="flex flex-1 items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-white shadow-icon-glow">
+    <header className="fixed top-0 z-50 h-[60px] w-full min-w-0 overflow-x-hidden border-b border-white/[0.06] bg-[rgba(2,8,24,0.80)] backdrop-blur-[12px] md:h-nav">
+      <nav className="mx-auto flex h-full max-w-content items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:px-12">
+        <Link
+          href="/"
+          className="flex min-w-0 max-w-[min(100%,16rem)] flex-1 items-center gap-2.5 sm:max-w-none sm:gap-3 md:flex-none md:max-w-none"
+        >
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent text-white shadow-icon-glow">
             <LayoutGrid className="h-4 w-4" strokeWidth={1.75} aria-hidden />
           </span>
-          <span className="text-xl font-semibold tracking-tight text-white lg:text-2xl">
+          <span className="truncate text-lg font-semibold tracking-tight text-white sm:text-xl md:text-2xl">
             <span className="text-accent-sky">{SITE.namePrefix}</span>
             {SITE.nameSuffix}
           </span>
         </Link>
 
-        <div className="hidden flex-[2] items-center justify-center gap-6 lg:flex">
+        <div className="hidden flex-[1.4] shrink-0 items-center justify-center gap-5 whitespace-nowrap md:flex lg:gap-6">
           <Link
             href="/"
             className="text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:text-white"
@@ -113,23 +118,24 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="hidden flex flex-1 items-center justify-end lg:flex">
-          <Magnet strength={0.25}>
-            <Button variant="nav" href={NAV_CTA_HREF} onClick={() => pixel.initiateCheckout()}>
-              {NAV_CTA}
-            </Button>
-          </Magnet>
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2 md:max-w-none">
+          <div className="hidden md:block">
+            <Magnet strength={0.25}>
+              <Button variant="nav" href={NAV_CTA_HREF} onClick={() => pixel.initiateCheckout()}>
+                {NAV_CTA}
+              </Button>
+            </Magnet>
+          </div>
+          <button
+            type="button"
+            className="-mr-1 inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/[0.06] md:hidden"
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="h-6 w-6" strokeWidth={1.5} /> : <Menu className="h-6 w-6" strokeWidth={1.5} />}
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="ml-auto text-white lg:hidden"
-          aria-expanded={open}
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-6 w-6" strokeWidth={1.5} /> : <Menu className="h-6 w-6" strokeWidth={1.5} />}
-        </button>
       </nav>
 
       <AnimatePresence>
@@ -139,12 +145,12 @@ export function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="absolute left-0 top-full w-full overflow-hidden border-b border-white/[0.06] bg-[rgba(2,8,24,0.97)] backdrop-blur-[12px] lg:hidden"
+            className="absolute left-0 top-full w-full overflow-hidden border-b border-white/[0.06] bg-[rgba(2,8,24,0.97)] backdrop-blur-[12px] md:hidden"
           >
-            <div className="flex flex-col gap-6 px-5 py-6 sm:px-6 lg:px-12">
+            <div className="flex flex-col gap-1 px-4 py-5 sm:px-6 lg:px-12">
               <Link
                 href="/"
-                className="text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:text-white"
+                className="min-h-11 rounded-lg px-1 py-2.5 text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:bg-white/[0.06] hover:text-white"
                 onClick={() => setOpen(false)}
               >
                 Home
@@ -152,7 +158,7 @@ export function Navbar() {
               {NAV_LINKS.map((link) => renderMobileNavLink(link))}
               <Link
                 href="/contact"
-                className="text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:text-white"
+                className="min-h-11 rounded-lg px-1 py-2.5 text-[0.875rem] font-normal text-white/[0.70] transition-colors hover:bg-white/[0.06] hover:text-white"
                 onClick={() => setOpen(false)}
               >
                 Contact
